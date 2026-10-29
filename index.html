@@ -1,12 +1,923 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="MockTIA Labs — interactive hands-on training in computer hardware, Windows, Linux and networking."><title>MockTIA Labs | IT Training Arcade</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MockTIA Virtual Labs - Modern Online Computing Knowledge & Technical IT Applications">
+<title>MockTIA Virtual Labs | Interactive IT Training</title>
+
 <style>
-:root{color-scheme:dark;--bg:#070c1d;--panel:#111d36;--edge:#31476b;--white:#eef5ff;--muted:#aebfd6;--cyan:#45e7fb;--pink:#ff4fc4;--lime:#8ef1bd}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--white);background:radial-gradient(ellipse at 78% 7%,#322159 0,transparent 32%),radial-gradient(ellipse at 10% 32%,#0d3353 0,transparent 39%),var(--bg);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.15;background-image:linear-gradient(#3863a4 1px,transparent 1px),linear-gradient(90deg,#3863a4 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,transparent,#000 80%)}.container{max-width:1240px;margin:auto;padding:0 24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:27px 0;border-bottom:1px solid #52678488}.brand{font-size:1.5rem;letter-spacing:1px;font-weight:950;text-decoration:none;color:white}.brand .mark{color:var(--cyan);text-shadow:0 0 20px #0fd1ff91}.toplinks{display:flex;gap:18px;flex-wrap:wrap}.toplinks a{color:var(--muted);text-decoration:none;font-size:.92rem}.toplinks a:hover{color:var(--cyan)}.hero{padding:67px 0 36px}.eyebrow{color:var(--lime);letter-spacing:.2em;font-size:.75rem;font-weight:800}.hero h1{font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-.05em;line-height:1.06;margin:14px 0 20px;max-width:920px}.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#9f8afd,var(--pink));background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:780px;font-size:1.1rem}.metrics{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.metric{padding:12px 19px;border:1px solid var(--edge);background:#182443aa;border-radius:13px}.metric strong{font-size:1.35rem;color:var(--cyan)}.metric span{margin-left:8px;color:var(--muted);font-size:.85rem}.featured{border:1px solid #b95bdb8c;background:linear-gradient(110deg,#28234bc0,#131d34dd);box-shadow:0 12px 36px #08061452;border-radius:18px;padding:26px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:25px 0 42px}.featured .tag{font-weight:800;color:#ffc7f2;font-size:.76rem;letter-spacing:.15em}.featured h2{margin:5px 0;font-size:1.5rem}.featured p{margin:0;color:var(--muted)}a.launch{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:11px;background:linear-gradient(105deg,#19d2f0,#a47aff);color:#071225;font-weight:900;text-decoration:none;white-space:nowrap}.launch:hover{filter:brightness(1.13)}.filters{position:sticky;top:0;z-index:10;padding:15px 0;background:#090f20ef;backdrop-filter:blur(12px);border-bottom:1px solid #3d5178}.filterrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.search{flex:1;min-width:210px;padding:13px 17px;background:#182542;border:1px solid #436080;border-radius:12px;color:#fff;font:inherit;outline-offset:2px}.search::placeholder{color:#9fb1c8}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{background:#15243f;border:1px solid #395579;border-radius:999px;color:#cfdeee;padding:10px 13px;cursor:pointer;font:700 .85rem system-ui}.tab[aria-pressed=true]{background:#0b5268;color:white;border-color:var(--cyan)}.results{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:28px 0 15px}.results h2{margin:0;font-size:1.3rem}.results span{color:var(--muted);font-size:.87rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:17px;padding-bottom:45px}.card{display:flex;flex-direction:column;padding:22px;min-height:220px;border-radius:16px;background:linear-gradient(145deg,#172642e8,#101a2edb);border:1px solid #334e74;box-shadow:0 9px 23px #03081540;transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-3px);border-color:var(--cyan)}.captop{display:flex;align-items:center;justify-content:space-between;gap:8px}.code{color:var(--cyan);font-weight:850;font-size:.86rem}.category{border:1px solid #58638d;border-radius:99px;padding:3px 9px;font-size:.72rem;color:#cfcaff}.card h3{font-size:1.1rem;line-height:1.3;margin:14px 0 8px}.card p{color:var(--muted);font-size:.86rem;margin:0 0 18px}.card a{margin-top:auto;display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:var(--lime);font-weight:850}.card a:hover{text-decoration:underline}.hide{display:none!important}.empty{padding:25px;border:1px dashed #637699;border-radius:14px;color:var(--muted)}.guide{background:#0f1b33b0;border:1px solid var(--edge);border-radius:16px;padding:26px;margin:6px 0 38px}.guide h2{margin:0 0 10px}.guide p{color:var(--muted);margin:9px 0}footer{padding:26px 0 42px;border-top:1px solid #374c70;color:var(--muted);font-size:.89rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}footer strong{color:#dcf6ff}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #9af9ff;outline-offset:3px}@media(max-width:650px){.hero{padding-top:40px}.featured{padding:20px}.topbar{align-items:flex-start}.toplinks{gap:10px}.container{padding:0 16px}.filterrow{align-items:stretch}.tabs{width:100%}.tab{flex:1}.card{min-height:200px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}.lab-photo{width:calc(100% + 44px);margin:-22px -22px 15px;aspect-ratio:1.88;object-fit:cover;border-radius:15px 15px 0 0;border-bottom:1px solid #37577c;display:block;background:#0a1324}.card{overflow:hidden}.card:hover .lab-photo{filter:brightness(1.09)}.featured-photo{width:230px;max-width:100%;aspect-ratio:1.75;object-fit:cover;border-radius:12px;border:1px solid #6a679c}.featured{justify-content:flex-start}.featured .launch{margin-left:auto}@media(max-width:650px){.featured-photo{width:100%}.featured .launch{margin-left:0}}
-</style></head><body>
-<div class="container"><header class="topbar"><a class="brand" href="index.html"><span class="mark">MockTIA</span> Labs<span aria-hidden="true"> ◈</span></a><nav class="toplinks" aria-label="Page navigation"><a href="#library">Browse Labs</a><a href="#student-guide">Student Guide</a><a href="#final-exam">Final Exam</a></nav></header>
-<main><section class="hero"><div class="eyebrow">INTERACTIVE IT TRAINING ARCADE</div><h1>Learn it. Fix it. <em>Prove it.</em></h1><p>Practice real-world IT support skills through hands-on virtual labs. Investigate hardware, troubleshoot Windows, manage Linux and restore network connectivity—all in your browser.</p><div class="metrics"><div class="metric"><strong id="labCount">27</strong><span>practice labs</span></div><div class="metric"><strong>1</strong><span>capstone final exam</span></div><div class="metric"><strong>4</strong><span>skill tracks</span></div></div></section>
-<section class="featured" id="final-exam"><div><div class="tag">★ CAPSTONE CHALLENGE</div><h2>Virtual IT Support Final Practical Exam</h2><p>12 interconnected troubleshooting work orders • Hardware • Windows • Networking • Linux</p></div><a class="launch" href="labs/MockTIA_Final_Exam_Virtual_IT_Support_Practical.html">Launch Final Exam ↗</a></section></main></div>
-<div class="filters" id="library"><div class="container filterrow"><input class="search" id="search" type="search" placeholder="Search by lab code, skill or keyword…" aria-label="Search labs"><div class="tabs" aria-label="Filter by topic"><button class="tab" data-filter="All" aria-pressed="true">All</button><button class="tab" data-filter="Hardware" aria-pressed="false">Hardware</button><button class="tab" data-filter="Windows" aria-pressed="false">Windows</button><button class="tab" data-filter="Linux" aria-pressed="false">Linux</button><button class="tab" data-filter="Networking" aria-pressed="false">Networking</button></div></div></div>
-<div class="container"><div class="results"><h2>Lab Library</h2><span id="count" aria-live="polite"></span></div><section class="grid" id="cards" aria-label="Interactive lab links"></section><div class="empty hide" id="empty">No labs match that search. Try another keyword or choose All.</div>
-<section class="guide" id="student-guide"><h2>How to Complete a MockTIA Lab</h2><p><b>1.</b> Choose a lab and enter your full name when prompted. <b>2.</b> Follow the guided tasks, or switch to Assessment Mode if available. <b>3.</b> Use the simulated workbench and diagnostic tools to finish the objectives. <b>4.</b> Check your results and use <b>Print / Save Completion PDF</b> to turn in your work through Canvas.</p><p>Each lab opens as a standalone HTML page. The tools inside are simulations—not real Windows, Linux, or switch configurations. Your instructor may require additional screenshots or verification where a report cannot determine a score.</p></section>
-<footer><span><strong>MockTIA Labs</strong> · Virtual IT Support Training</span><span>Created by Mr. Beaird · For educational classroom use</span></footer></div>
-<script>const labs=[{"category":"Hardware","code":"2.1.16","title":"Set Up a Desktop Computer","description":"Build and connect a functional desktop workstation","href":"labs/MockTIA_2_1_16_Set_Up_a_Desktop_Computer.html","image":"images/lab_2_1_16.webp"},{"category":"Hardware","code":"3.3.4","title":"Select Memory by Sight","description":"Identify compatible RAM and memory types","href":"labs/MockTIA_3_3_4_Select_Memory_by_Sight.html","image":"images/lab_3_3_4.webp"},{"category":"Hardware","code":"3.3.7","title":"Install Triple Channel Memory","description":"Match and populate memory channels","href":"labs/MockTIA_3_3_7_Install_Triple_Channel_Memory.html","image":"images/lab_3_3_7.webp"},{"category":"Hardware","code":"3.5","title":"Troubleshoot Memory","description":"Diagnose POST and RAM issues","href":"labs/MockTIA_3_5_Troubleshoot_Memory.html","image":"images/lab_3_5.webp"},{"category":"Hardware","code":"3.2.12","title":"Install SATA Devices","description":"Connect, detect, and configure SATA storage","href":"labs/MockTIA_3_2_12_Install_SATA_Devices.html","image":"images/lab_3_2_12.webp"},{"category":"Hardware","code":"2.4","title":"Set Up an A/V Workstation","description":"Configure an audio/video workstation","href":"labs/MockTIA_2_4_Set_Up_an_AV_Workstation.html","image":"images/lab_2_4.webp"},{"category":"Hardware","code":"2.2.11","title":"Choose and Install a Motherboard","description":"Select and install compatible PC hardware","href":"labs/MockTIA_2_2_11_Choose_and_Install_a_Motherboard.html","image":"images/lab_2_2_11.webp"},{"category":"Hardware","code":"2.2.13","title":"Upgrade a Video Card","description":"Install and verify a graphics adapter","href":"labs/MockTIA_2_2_13_Upgrade_a_Video_Card.html","image":"images/lab_2_2_13.webp"},{"category":"Hardware","code":"4.3.9","title":"Troubleshoot GPU","description":"Diagnose video and graphics faults","href":"labs/MockTIA_4_3_9_Troubleshoot_GPU.html","image":"images/lab_4_3_9.webp"},{"category":"Hardware","code":"4.1.2","title":"Find BIOS/UEFI Settings","description":"Inspect and change firmware settings","href":"labs/MockTIA_4_1_2_Find_BIOS_UEFI_Settings.html","image":"images/lab_4_1_2.webp"},{"category":"Hardware","code":"4.1.10","title":"Configure BIOS/UEFI Security","description":"Protect firmware settings and boot process","href":"labs/MockTIA_4_1_10_Configure_BIOS_UEFI_Security.html","image":"images/lab_4_1_10.webp"},{"category":"Hardware","code":"4.2.6","title":"Troubleshoot Boot Issues","description":"Diagnose failed startup conditions","href":"labs/MockTIA_4_2_6_Troubleshoot_Boot_Issues.html","image":"images/lab_4_2_6.webp"},{"category":"Hardware","code":"3.1.2","title":"Install a Power Supply","description":"Identify PSU wiring and power requirements","href":"labs/MockTIA_3_1_2_Install_a_Power_Supply.html","image":"images/lab_3_1_2.webp"},{"category":"Hardware","code":"4.2.2","title":"Troubleshoot System Power","description":"Find causes of power and POST failures","href":"labs/MockTIA_4_2_2_Troubleshoot_System_Power.html","image":"images/lab_4_2_2.webp"},{"category":"Hardware","code":"3.1.9","title":"Troubleshoot Power Supply Problems","description":"Test and isolate PSU faults","href":"labs/MockTIA_3_1_9_Troubleshoot_Power_Supply_Problems.html","image":"images/lab_3_1_9.webp"},{"category":"Hardware","code":"2.2.8","title":"Install a UPS","description":"Connect and verify backup power","href":"labs/MockTIA_2_2_8_Install_a_UPS.html","image":"images/lab_2_2_8.webp"},{"category":"Windows","code":"2.1.7","title":"Install USB Devices","description":"Connect USB devices and inspect Windows drivers","href":"labs/MockTIA_2_1_7_Install_USB_Devices.html","image":"images/lab_2_1_7.webp"},{"category":"Windows","code":"2.3.2","title":"Configure Dual Monitors","description":"Connect HDMI/DisplayPort and configure displays","href":"labs/MockTIA_2_3_2_Select_and_Configure_Dual_Monitors.html","image":"images/lab_2_3_2.webp"},{"category":"Windows","code":"4.4","title":"Resolve PC Hardware Support Tickets","description":"Diagnose and close simulated support tickets","href":"labs/MockTIA_4_4_Resolve_PC_Hardware_Support_Tickets.html","image":"images/lab_4_4.webp"},{"category":"Windows","code":"4.2.10","title":"Troubleshoot Drive Availability","description":"Use Windows tools to restore missing drives","href":"labs/MockTIA_4_2_10_Troubleshoot_Drive_Availability.html","image":"images/lab_4_2_10.webp"},{"category":"Windows","code":"4.5","title":"Troubleshoot a Malfunctioning Computer","description":"Solve combined hardware and Windows incidents","href":"labs/MockTIA_4_5_Troubleshoot_a_Malfunctioning_Computer.html","image":"images/lab_4_5.webp"},{"category":"Linux","code":"17.1.7","title":"Linux File Management","description":"Navigate, create, copy, move and remove files","href":"labs/MockTIA_17_1_7_File_Management_Interactive.html","image":"images/lab_17_1_7.webp"},{"category":"Linux","code":"17.1.10","title":"Manage Linux File Ownership","description":"Work with chown, chgrp and chmod","href":"labs/MockTIA_17_1_10_Manage_Linux_File_Ownership_Interactive.html","image":"images/lab_17_1_10.webp"},{"category":"Linux","code":"17.2.6","title":"Configure Linux","description":"Manage networking, SSH, firewall and updates","href":"labs/MockTIA_17_2_6_Configure_Linux_Interactive.html","image":"images/lab_17_2_6.webp"},{"category":"Networking","code":"5.2.2","title":"Select and Install a Network Adapter","description":"Install and test a NIC","href":"labs/MockTIA_5_2_2_Select_and_Install_a_Network_Adapter.html","image":"images/lab_5_2_2.webp"},{"category":"Networking","code":"5.2.5","title":"Connect Patch Panel Cables","description":"Patch and verify physical network connections","href":"labs/MockTIA_5_2_5_Connect_Patch_Panel_Cables.html","image":"images/lab_5_2_5.webp"},{"category":"Networking","code":"5.3","title":"Network Troubleshooting","description":"Resolve DHCP, DNS, cabling, gateway and VLAN faults","href":"labs/MockTIA_5_3_Network_Troubleshooting_Interactive.html","image":"images/lab_5_3.webp"},{"category":"Final Exam","code":"FINAL","title":"Virtual IT Support Practical Exam","description":"Twelve-work-order comprehensive troubleshooting capstone","href":"labs/MockTIA_Final_Exam_Virtual_IT_Support_Practical.html","image":"images/lab_FINAL.webp"}];const featured=document.querySelector('.featured');if(featured){const featImg=document.createElement('img');featImg.className='featured-photo';featImg.src=labs.find(l=>l.code==='FINAL').image;featImg.alt='Virtual IT support final exam preview';featured.prepend(featImg)}const cards=document.getElementById('cards'),search=document.getElementById('search'),counter=document.getElementById('count');let active='All';document.getElementById('labCount').textContent=labs.filter(l=>l.category!=='Final Exam').length;function draw(){let q=search.value.toLocaleLowerCase().trim(),matching=labs.filter(l=>l.category!=='Final Exam'&&(active==='All'||l.category===active)&&[l.title,l.code,l.description,l.category].join(' ').toLocaleLowerCase().includes(q));cards.replaceChildren();const fragment=document.createDocumentFragment();for(let lab of matching){const card=document.createElement('article');card.className='card';const top=document.createElement('div');top.className='captop';const code=document.createElement('span');code.className='code';code.textContent=lab.code;const cat=document.createElement('span');cat.className='category';cat.textContent=lab.category;top.append(code,cat);const photo=document.createElement('img');photo.className='lab-photo';photo.src=lab.image;photo.alt='Visual preview for '+lab.title;photo.loading='lazy';photo.decoding='async';const h3=document.createElement('h3');h3.textContent=lab.title;const p=document.createElement('p');p.textContent=lab.description;const a=document.createElement('a');a.href=lab.href;a.textContent='Launch lab ↗';a.setAttribute('aria-label','Launch '+lab.code+' '+lab.title);card.append(photo,top,h3,p,a);fragment.append(card)}cards.append(fragment);counter.textContent=matching.length+' '+(matching.length===1?'lab':'labs')+' shown';document.getElementById('empty').classList.toggle('hide',matching.length!==0)}search.addEventListener('input',draw);document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{active=btn.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));draw()}));draw();</script></body></html>
+:root {
+  --bg:#070c1d;
+  --panel:#111d36;
+  --edge:#31476b;
+  --white:#eef5ff;
+  --muted:#aebfd6;
+  --cyan:#45e7fb;
+  --pink:#ff4fc4;
+  --lime:#8ef1bd;
+}
+
+* {box-sizing:border-box}
+
+html {scroll-behavior:smooth}
+
+body {
+  margin:0;
+  font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;
+  color:var(--white);
+  background:
+    radial-gradient(ellipse at 78% 7%,#322159 0,transparent 32%),
+    radial-gradient(ellipse at 10% 32%,#0d3353 0,transparent 39%),
+    var(--bg);
+  min-height:100vh;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.12;
+  background-image:
+    linear-gradient(#3863a4 1px,transparent 1px),
+    linear-gradient(90deg,#3863a4 1px,transparent 1px);
+  background-size:48px 48px;
+}
+
+.container {
+  position:relative;
+  max-width:1240px;
+  margin:auto;
+  padding:0 24px;
+}
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:25px 0;
+  border-bottom:1px solid #52678488;
+}
+
+.brand {
+  font-size:1.55rem;
+  letter-spacing:1px;
+  font-weight:900;
+  text-decoration:none;
+  color:white;
+}
+
+.brand .mark {
+  color:var(--cyan);
+  text-shadow:0 0 20px #0fd1ff91;
+}
+
+.brand small {
+  font-size:.65em;
+  letter-spacing:.1em;
+}
+
+.toplinks {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.toplinks a {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:.92rem;
+}
+
+.toplinks a:hover {color:var(--cyan)}
+
+.hero {padding:60px 0 36px}
+
+.eyebrow {
+  color:var(--lime);
+  font-size:.76rem;
+  letter-spacing:.2em;
+  font-weight:800;
+}
+
+.brandhero {
+  display:flex;
+  align-items:center;
+  gap:23px;
+  margin:15px 0 20px;
+}
+
+.brandchip {
+  flex:0 0 84px;
+  height:84px;
+  display:grid;
+  place-items:center;
+  border:4px solid var(--cyan);
+  border-radius:18px;
+  color:var(--cyan);
+  box-shadow:0 0 30px #20dcfb44,inset 0 0 18px #20dcfb25;
+  font-size:2.9rem;
+  font-weight:950;
+}
+
+.hero h1 {
+  margin:0;
+  font-size:clamp(2.5rem,6vw,4.9rem);
+  line-height:1.08;
+}
+
+.neon {
+  color:var(--cyan);
+  text-shadow:0 0 22px #45e7fb55;
+}
+
+.hero h1 em {
+  display:block;
+  font-style:normal;
+  font-size:.58em;
+  margin-top:8px;
+  letter-spacing:.05em;
+}
+
+.meaning {
+  color:#cbdcf4;
+  font-size:clamp(.92rem,1.5vw,1.1rem);
+  font-weight:650;
+  max-width:800px;
+  margin:14px 0 0;
+}
+
+.intro {
+  color:var(--muted);
+  max-width:800px;
+  font-size:1.08rem;
+}
+
+.tagline {
+  color:var(--lime);
+  font-weight:850;
+  letter-spacing:.12em;
+  margin:22px 0;
+}
+
+.tagline span {
+  color:#a87dff;
+  padding:0 8px;
+}
+
+.metrics {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:28px 0;
+}
+
+.metric {
+  padding:12px 19px;
+  border:1px solid var(--edge);
+  background:#182443aa;
+  border-radius:13px;
+}
+
+.metric strong {
+  color:var(--cyan);
+  font-size:1.35rem;
+}
+
+.metric span {
+  color:var(--muted);
+  margin-left:8px;
+  font-size:.85rem;
+}
+
+.featured {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:24px;
+  padding:25px;
+  margin:20px 0 42px;
+  background:linear-gradient(110deg,#28234bc0,#131d34dd);
+  border:1px solid #b95bdb8c;
+  border-radius:18px;
+}
+
+.featured-photo {
+  width:230px;
+  max-width:100%;
+  aspect-ratio:1.75;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid #6a679c;
+}
+
+.featured .tag {
+  color:#ffc7f2;
+  font-size:.76rem;
+  letter-spacing:.15em;
+  font-weight:800;
+}
+
+.featured h2 {
+  margin:5px 0;
+  font-size:1.5rem;
+}
+
+.featured p {
+  margin:0;
+  color:var(--muted);
+}
+
+.launch {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:12px 20px;
+  border-radius:11px;
+  background:linear-gradient(105deg,#19d2f0,#a47aff);
+  color:#071225;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.featured .launch {margin-left:auto}
+
+.filters {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#090f20f5;
+  border-bottom:1px solid #3d5178;
+  padding:14px 0;
+  backdrop-filter:blur(12px);
+}
+
+.filterrow {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.search {
+  flex:1;
+  min-width:210px;
+  padding:13px 17px;
+  color:white;
+  background:#182542;
+  border:1px solid #436080;
+  border-radius:12px;
+  font:inherit;
+}
+
+.tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.tab {
+  padding:10px 13px;
+  border:1px solid #395579;
+  border-radius:100px;
+  color:#cfdeee;
+  background:#15243f;
+  font:700 .85rem system-ui;
+  cursor:pointer;
+}
+
+.tab[aria-pressed="true"] {
+  background:#0b5268;
+  color:white;
+  border-color:var(--cyan);
+}
+
+.results {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin:28px 0 16px;
+}
+
+.results h2 {margin:0}
+
+.results span {
+  color:var(--muted);
+  font-size:.85rem;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));
+  gap:17px;
+  padding-bottom:45px;
+}
+
+.card {
+  display:flex;
+  flex-direction:column;
+  padding:22px;
+  overflow:hidden;
+  border:1px solid #334e74;
+  border-radius:16px;
+  background:linear-gradient(145deg,#172642e8,#101a2edb);
+  transition:transform .18s,border-color .18s;
+}
+
+.card:hover {
+  transform:translateY(-3px);
+  border-color:var(--cyan);
+}
+
+.lab-photo {
+  width:calc(100% + 44px);
+  margin:-22px -22px 15px;
+  aspect-ratio:1.88;
+  object-fit:cover;
+  border-radius:15px 15px 0 0;
+  border-bottom:1px solid #37577c;
+  background:#0a1324;
+}
+
+.captop {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+
+.code {
+  color:var(--cyan);
+  font-weight:850;
+}
+
+.category {
+  padding:3px 9px;
+  border:1px solid #58638d;
+  border-radius:99px;
+  color:#cfcaff;
+  font-size:.72rem;
+}
+
+.card h3 {
+  font-size:1.1rem;
+  line-height:1.3;
+  margin:14px 0 8px;
+}
+
+.card p {
+  color:var(--muted);
+  font-size:.86rem;
+  margin:0 0 18px;
+}
+
+.card a {
+  margin-top:auto;
+  color:var(--lime);
+  font-weight:850;
+  text-decoration:none;
+}
+
+.card a:hover {text-decoration:underline}
+
+.hide {display:none!important}
+
+.empty {
+  padding:25px;
+  color:var(--muted);
+  border:1px dashed #637699;
+  border-radius:14px;
+}
+
+.guide {
+  background:#0f1b33b0;
+  border:1px solid var(--edge);
+  border-radius:16px;
+  padding:26px;
+  margin:6px 0 38px;
+}
+
+.guide p {color:var(--muted)}
+
+footer {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:26px 0 42px;
+  color:var(--muted);
+  border-top:1px solid #374c70;
+  font-size:.89rem;
+}
+
+footer strong {color:#dcf6ff}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline:3px solid #9af9ff;
+  outline-offset:3px;
+}
+
+@media(max-width:650px) {
+  .container {padding:0 16px}
+  .topbar {align-items:flex-start;flex-wrap:wrap}
+  .hero {padding-top:36px}
+  .brandhero {align-items:flex-start;gap:15px}
+  .brandchip {
+    flex-basis:54px;
+    height:54px;
+    font-size:1.8rem;
+    border-width:3px;
+    border-radius:11px;
+  }
+  .hero h1 {font-size:2.2rem}
+  .featured-photo {width:100%}
+  .featured .launch {margin-left:0}
+  .tabs {width:100%}
+  .tab {flex:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="mark">MockTIA</span>
+      <small>VIRTUAL LABS</small>
+    </a>
+    <nav class="toplinks" aria-label="Page navigation">
+      <a href="#library">Browse Labs</a>
+      <a href="#student-guide">Student Guide</a>
+      <a href="#final-exam">Final Exam</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">INTERACTIVE IT TRAINING &amp; SIMULATIONS</div>
+
+      <div class="brandhero">
+        <div class="brandchip" aria-hidden="true">M</div>
+        <div>
+          <h1>Mock<span class="neon">TIA</span>
+            <em>Virtual Labs</em>
+          </h1>
+          <p class="meaning">
+            Modern Online Computing Knowledge &amp;
+            Technical IT Applications
+          </p>
+        </div>
+      </div>
+
+      <p class="intro">
+        Practice real-world IT support skills through hands-on virtual labs.
+        Investigate hardware, troubleshoot Windows, manage Linux,
+        and restore network connectivity — all in your browser.
+      </p>
+
+      <p class="tagline">
+        LEARN IT <span>•</span> BUILD IT
+        <span>•</span> TROUBLESHOOT IT
+      </p>
+
+      <div class="metrics">
+        <div class="metric">
+          <strong id="labCount">27</strong>
+          <span>practice labs</span>
+        </div>
+        <div class="metric">
+          <strong>1</strong>
+          <span>capstone final exam</span>
+        </div>
+        <div class="metric">
+          <strong>4</strong>
+          <span>skill tracks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured" id="final-exam">
+      <img
+        class="featured-photo"
+        src="images/lab_FINAL.webp"
+        alt="MockTIA final practical exam preview">
+
+      <div>
+        <div class="tag">★ CAPSTONE CHALLENGE</div>
+        <h2>Virtual IT Support Final Practical Exam</h2>
+        <p>
+          12 troubleshooting work orders • Hardware •
+          Windows • Networking • Linux
+        </p>
+      </div>
+
+      <a class="launch"
+         href="labs/MockTIA_Final_Exam_Virtual_IT_Support_Practical.html">
+        Launch Final Exam ↗
+      </a>
+    </section>
+  </main>
+</div>
+
+<div class="filters" id="library">
+  <div class="container filterrow">
+
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search lab number, skill, or keyword…"
+      aria-label="Search labs">
+
+    <div class="tabs" aria-label="Filter by topic">
+      <button class="tab" data-filter="All" aria-pressed="true">All</button>
+      <button class="tab" data-filter="Hardware" aria-pressed="false">Hardware</button>
+      <button class="tab" data-filter="Windows" aria-pressed="false">Windows</button>
+      <button class="tab" data-filter="Linux" aria-pressed="false">Linux</button>
+      <button class="tab" data-filter="Networking" aria-pressed="false">Networking</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="results">
+    <h2>Lab Library</h2>
+    <span id="count" aria-live="polite"></span>
+  </div>
+
+  <section
+    class="grid"
+    id="cards"
+    aria-label="Interactive lab links">
+  </section>
+
+  <div class="empty hide" id="empty">
+    No labs match your search. Try another keyword or select All.
+  </div>
+
+  <section class="guide" id="student-guide">
+    <h2>How to Complete a MockTIA Virtual Lab</h2>
+
+    <p>
+      <b>1.</b> Select a lab and enter your full name.
+      <b>2.</b> Follow the guided instructions or select Assessment Mode.
+      <b>3.</b> Complete the simulated hands-on objectives.
+      <b>4.</b> Check your results.
+      <b>5.</b> Select Print / Save Completion PDF and upload it to Canvas.
+    </p>
+
+    <p>
+      These are educational simulations. They do not modify real
+      Windows, Linux, hardware, or network devices.
+      Your instructor may require additional evidence of completion.
+    </p>
+  </section>
+
+  <footer>
+    <span>
+      <strong>MockTIA Virtual Labs</strong><br>
+      Modern Online Computing Knowledge &amp; Technical IT Applications
+    </span>
+    <span>Created by Mr. Beaird · Educational classroom use</span>
+  </footer>
+
+</div>
+
+<script>
+const labs = [
+  // HARDWARE
+  {
+    category:"Hardware",
+    code:"2.1.16",
+    title:"Set Up a Desktop Computer",
+    description:"Build and connect a functional desktop workstation.",
+    file:"MockTIA_2_1_16_Set_Up_a_Desktop_Computer.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.3.4",
+    title:"Select Memory by Sight",
+    description:"Identify compatible RAM and memory types.",
+    file:"MockTIA_3_3_4_Select_Memory_by_Sight.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.3.7",
+    title:"Install Triple Channel Memory",
+    description:"Match and populate memory channels.",
+    file:"MockTIA_3_3_7_Install_Triple_Channel_Memory.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.5",
+    title:"Troubleshoot Memory",
+    description:"Diagnose POST and RAM issues.",
+    file:"MockTIA_3_5_Troubleshoot_Memory.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.2.12",
+    title:"Install SATA Devices",
+    description:"Connect, detect, and configure SATA storage.",
+    file:"MockTIA_3_2_12_Install_SATA_Devices.html"
+  },
+  {
+    category:"Hardware",
+    code:"2.4",
+    title:"Set Up an A/V Workstation",
+    description:"Configure an audio/video workstation.",
+    file:"MockTIA_2_4_Set_Up_an_AV_Workstation.html"
+  },
+  {
+    category:"Hardware",
+    code:"2.2.11",
+    title:"Choose and Install a Motherboard",
+    description:"Select and install compatible PC hardware.",
+    file:"MockTIA_2_2_11_Choose_and_Install_a_Motherboard.html"
+  },
+  {
+    category:"Hardware",
+    code:"2.2.13",
+    title:"Upgrade a Video Card",
+    description:"Install and verify a graphics adapter.",
+    file:"MockTIA_2_2_13_Upgrade_a_Video_Card.html"
+  },
+  {
+    category:"Hardware",
+    code:"4.3.9",
+    title:"Troubleshoot GPU",
+    description:"Diagnose graphics and display faults.",
+    file:"MockTIA_4_3_9_Troubleshoot_GPU.html"
+  },
+  {
+    category:"Hardware",
+    code:"4.1.2",
+    title:"Find BIOS/UEFI Settings",
+    description:"Inspect and change firmware settings.",
+    file:"MockTIA_4_1_2_Find_BIOS_UEFI_Settings.html"
+  },
+  {
+    category:"Hardware",
+    code:"4.1.10",
+    title:"Configure BIOS/UEFI Security",
+    description:"Protect firmware settings and the boot process.",
+    file:"MockTIA_4_1_10_Configure_BIOS_UEFI_Security.html"
+  },
+  {
+    category:"Hardware",
+    code:"4.2.6",
+    title:"Troubleshoot Boot Issues",
+    description:"Diagnose failed startup conditions.",
+    file:"MockTIA_4_2_6_Troubleshoot_Boot_Issues.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.1.2",
+    title:"Install a Power Supply",
+    description:"Identify PSU wiring and power requirements.",
+    file:"MockTIA_3_1_2_Install_a_Power_Supply.html"
+  },
+  {
+    category:"Hardware",
+    code:"4.2.2",
+    title:"Troubleshoot System Power",
+    description:"Find causes of power and POST failures.",
+    file:"MockTIA_4_2_2_Troubleshoot_System_Power.html"
+  },
+  {
+    category:"Hardware",
+    code:"3.1.9",
+    title:"Troubleshoot Power Supply Problems",
+    description:"Test and isolate PSU faults.",
+    file:"MockTIA_3_1_9_Troubleshoot_Power_Supply_Problems.html"
+  },
+  {
+    category:"Hardware",
+    code:"2.2.8",
+    title:"Install a UPS",
+    description:"Connect and verify backup power.",
+    file:"MockTIA_2_2_8_Install_a_UPS.html"
+  },
+
+  // WINDOWS
+  {
+    category:"Windows",
+    code:"2.1.7",
+    title:"Install USB Devices",
+    description:"Connect USB devices and inspect Windows drivers.",
+    file:"MockTIA_2_1_7_Install_USB_Devices.html"
+  },
+  {
+    category:"Windows",
+    code:"2.3.2",
+    title:"Configure Dual Monitors",
+    description:"Connect HDMI/DisplayPort and configure displays.",
+    file:"MockTIA_2_3_2_Select_and_Configure_Dual_Monitors.html"
+  },
+  {
+    category:"Windows",
+    code:"4.4",
+    title:"Resolve PC Hardware Support Tickets",
+    description:"Diagnose and close simulated support tickets.",
+    file:"MockTIA_4_4_Resolve_PC_Hardware_Support_Tickets.html"
+  },
+  {
+    category:"Windows",
+    code:"4.2.10",
+    title:"Troubleshoot Drive Availability",
+    description:"Use Windows tools to restore missing drives.",
+    file:"MockTIA_4_2_10_Troubleshoot_Drive_Availability.html"
+  },
+  {
+    category:"Windows",
+    code:"4.5",
+    title:"Troubleshoot a Malfunctioning Computer",
+    description:"Solve combined hardware and Windows incidents.",
+    file:"MockTIA_4_5_Troubleshoot_a_Malfunctioning_Computer.html"
+  },
+
+  // LINUX
+  {
+    category:"Linux",
+    code:"17.1.7",
+    title:"Linux File Management",
+    description:"Navigate, create, copy, move, and remove files.",
+    file:"MockTIA_17_1_7_File_Management_Interactive.html"
+  },
+  {
+    category:"Linux",
+    code:"17.1.10",
+    title:"Manage Linux File Ownership",
+    description:"Practice chown, chgrp, and chmod.",
+    file:"MockTIA_17_1_10_Manage_Linux_File_Ownership_Interactive.html"
+  },
+  {
+    category:"Linux",
+    code:"17.2.6",
+    title:"Configure Linux",
+    description:"Manage networking, SSH, firewall, and updates.",
+    file:"MockTIA_17_2_6_Configure_Linux_Interactive.html"
+  },
+
+  // NETWORKING
+  {
+    category:"Networking",
+    code:"5.2.2",
+    title:"Select and Install a Network Adapter",
+    description:"Install and test a network interface card.",
+    file:"MockTIA_5_2_2_Select_and_Install_a_Network_Adapter.html"
+  },
+  {
+    category:"Networking",
+    code:"5.2.5",
+    title:"Connect Patch Panel Cables",
+    description:"Patch and verify physical network connections.",
+    file:"MockTIA_5_2_5_Connect_Patch_Panel_Cables.html"
+  },
+  {
+    category:"Networking",
+    code:"5.3",
+    title:"Network Troubleshooting",
+    description:"Resolve DHCP, DNS, gateway, cabling, and VLAN faults.",
+    file:"MockTIA_5_3_Network_Troubleshooting_Interactive.html"
+  }
+];
+
+const images = {
+  "2.1.16":"lab_2_1_16.webp",
+  "3.3.4":"lab_3_3_4.webp",
+  "3.3.7":"lab_3_3_7.webp",
+  "3.5":"lab_3_5.webp",
+  "3.2.12":"lab_3_2_12.webp",
+  "2.4":"lab_2_4.webp",
+  "2.2.11":"lab_2_2_11.webp",
+  "2.2.13":"lab_2_2_13.webp",
+  "4.3.9":"lab_4_3_9.webp",
+  "4.1.2":"lab_4_1_2.webp",
+  "4.1.10":"lab_4_1_10.webp",
+  "4.2.6":"lab_4_2_6.webp",
+  "3.1.2":"lab_3_1_2.webp",
+  "4.2.2":"lab_4_2_2.webp",
+  "3.1.9":"lab_3_1_9.webp",
+  "2.2.8":"lab_2_2_8.webp",
+  "2.1.7":"lab_2_1_7.webp",
+  "2.3.2":"lab_2_3_2.webp",
+  "4.4":"lab_4_4.webp",
+  "4.2.10":"lab_4_2_10.webp",
+  "4.5":"lab_4_5.webp",
+  "17.1.7":"lab_17_1_7.webp",
+  "17.1.10":"lab_17_1_10.webp",
+  "17.2.6":"lab_17_2_6.webp",
+  "5.2.2":"lab_5_2_2.webp",
+  "5.2.5":"lab_5_2_5.webp",
+  "5.3":"lab_5_3.webp"
+};
+
+const cards = document.getElementById("cards");
+const search = document.getElementById("search");
+const counter = document.getElementById("count");
+const empty = document.getElementById("empty");
+
+let active = "All";
+
+document.getElementById("labCount").textContent = labs.length;
+
+function draw() {
+  const q = search.value.toLowerCase().trim();
+
+  const matching = labs.filter(lab => {
+    const rightCategory =
+      active === "All" || lab.category === active;
+
+    const searchable = [
+      lab.code,
+      lab.title,
+      lab.description,
+      lab.category
+    ].join(" ").toLowerCase();
+
+    return rightCategory && searchable.includes(q);
+  });
+
+  cards.replaceChildren();
+
+  for (const lab of matching) {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const photo = document.createElement("img");
+    photo.className = "lab-photo";
+    photo.src = "images/" + images[lab.code];
+    photo.alt = "Preview of " + lab.title;
+    photo.loading = "lazy";
+
+    const top = document.createElement("div");
+    top.className = "captop";
+
+    const code = document.createElement("span");
+    code.className = "code";
+    code.textContent = lab.code;
+
+    const category = document.createElement("span");
+    category.className = "category";
+    category.textContent = lab.category;
+
+    top.append(code, category);
+
+    const title = document.createElement("h3");
+    title.textContent = lab.title;
+
+    const description = document.createElement("p");
+    description.textContent = lab.description;
+
+    const launch = document.createElement("a");
+    launch.href = "labs/" + lab.file;
+    launch.textContent = "Launch Lab ↗";
+    launch.setAttribute(
+      "aria-label",
+      "Launch " + lab.code + " " + lab.title
+    );
+
+    card.append(photo, top, title, description, launch);
+    cards.append(card);
+  }
+
+  counter.textContent =
+    matching.length +
+    (matching.length === 1 ? " lab" : " labs") +
+    " shown";
+
+  empty.classList.toggle("hide", matching.length !== 0);
+}
+
+search.addEventListener("input", draw);
+
+document.querySelectorAll("[data-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    active = button.dataset.filter;
+
+    document.querySelectorAll("[data-filter]").forEach(b => {
+      b.setAttribute(
+        "aria-pressed",
+        String(b === button)
+      );
+    });
+
+    draw();
+  });
+});
+
+draw();
+</script>
+
+</body>
+</html>
