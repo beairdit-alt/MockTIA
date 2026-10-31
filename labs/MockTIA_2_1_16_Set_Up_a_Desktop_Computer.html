@@ -65,40 +65,63 @@ function showSummary(){checkLab();document.getElementById("mocktiaPrintBtn").cli
 #mocktiaStudentHelp strong{color:#55e9f6}
 @media print{#mocktiaAuthorFooter,#mocktiaStudentHelp{display:none!important}}
 </style><section id="mocktiaStudentHelp"><strong>Student steps:</strong> 1. Enter your full name. 2. Follow the “What to Do Next” directions and finish the simulation. 3. Select Check Answers or the lab’s assessment screen. 4. Use Print / Save Completion PDF and choose “Save as PDF.” 5. Submit the PDF and any required evidence to Canvas.</section><footer id="mocktiaAuthorFooter">MockTIA Labs · Created by Mr. Beaird</footer><style id="mocktia-assessment-style">
-#mocktiaAssessment{max-width:1540px;margin:14px auto;padding:14px 18px;background:#092c3f;border:1px solid #35b6d0;border-radius:12px;color:#ecfcff;font:14px/1.5 Segoe UI,Arial,sans-serif}
-#mocktiaAssessment .formrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px}#mocktiaAssessment strong{color:#72edfa}#mocktiaAssessment label{font-weight:700}
-#mocktiaStudentName{background:#fff;color:#10233c;border:2px solid #92d8e8;padding:9px 12px;border-radius:7px;min-width:230px;max-width:100%}
-#mocktiaAssessment button{background:#0d7888;color:white;border:1px solid #63eeff;padding:10px 17px;border-radius:8px;font-weight:800;cursor:pointer}
-#mocktiaAssessment .helptext{margin:9px 0 0;color:#c3e3f1;font-size:13px}
-#mocktiaAssessmentStatus{font-size:13px;color:#a4f9e2}
+#mocktiaAssessment{max-width:1530px;margin:16px auto;padding:18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:15px/1.45 'Segoe UI',Arial,sans-serif}
+#mocktiaAssessment h2{color:#29d9ed;margin:0 0 8px;font-size:1.25rem}
+#mocktiaAssessment .formrow{display:flex;align-items:end;gap:14px;flex-wrap:wrap}
+#mocktiaAssessment label{display:block;color:#d0e3f5;font-size:13px;margin:0 0 5px}
+#mocktiaStudentName{padding:10px;border:1px solid #547a99;border-radius:7px;background:#081628;color:white;min-width:230px;max-width:100%;font:inherit}
+#mocktiaAssessment .pill{display:inline-block;padding:8px 12px;border:1px solid #4b8399;border-radius:30px;color:#bdeaff}
+#mocktiaAssessment button{padding:10px 15px;border:1px solid #38dcdf;border-radius:8px;background:#08788b;color:#fff;cursor:pointer;font-weight:700}
+#mocktiaAssessment .helptext{color:#bfcee2;margin:10px 0 0;font-size:13px}
+#mocktiaAssessmentStatus{color:#66e4a2;font-weight:700}
 #mocktiaPrintReport{display:none}
-@media print{ @page{size:letter;margin:14mm}body{background:white!important;color:black!important}body>*:not(#mocktiaPrintReport){display:none!important}#mocktiaPrintReport{display:block!important;position:static!important;color:#182532!important;background:white!important;font:11pt/1.35 Arial,sans-serif!important}#mocktiaPrintReport h1{font-size:22pt;color:#153e57}#mocktiaPrintReport h2{font-size:14pt;color:#153e57}#mocktiaPrintReport table{width:100%;border-collapse:collapse}#mocktiaPrintReport th,#mocktiaPrintReport td{border:1px solid #8294a3;padding:8px;text-align:left}#mocktiaPrintReport th{background:#e5f0f6!important;color:#112a3e!important}#mocktiaPrintReport footer{margin-top:28px;border-top:1px solid #aab;padding-top:10px}}
+@media print{
+@page{size:letter;margin:12mm}
+body{background:white!important;color:#111!important}
+body>*:not(#mocktiaPrintReport){display:none!important}
+#mocktiaPrintReport{display:block!important;color:#111!important;font:11pt/1.45 Arial,sans-serif!important;padding:0 5mm}
+#mocktiaPrintReport h1{color:#103c62;font-size:20pt}
+#mocktiaPrintReport h2{color:#103c62;font-size:14pt}
+#mocktiaPrintReport table{border-collapse:collapse;width:100%;margin:12px 0}
+#mocktiaPrintReport td,#mocktiaPrintReport th{border:1px solid #999;padding:7px;text-align:left}
+#mocktiaPrintReport th{background:#e7eff7!important}
+#mocktiaPrintReport .sign{margin-top:28px;border-top:1px solid #aaa;padding-top:12px}
+}
 </style>
 <script id="mocktia-assessment-script">
 (function(){
- 'use strict';
- const labTitle='2.1.16 — Set Up a Desktop Computer';
- const key='mocktia_2_1_16_student_name';
- const form=document.createElement('section');form.id='mocktiaAssessment';
- form.innerHTML='<div class="formrow"><strong>MockTIA Student Assessment</strong><label for="mocktiaStudentName">Student full name:</label><input id="mocktiaStudentName" type="text" required autocomplete="name" placeholder="First and last name"><span id="mocktiaDate"></span><button id="mocktiaPrintBtn" type="button">Print / Save Completion PDF</button><span id="mocktiaAssessmentStatus" role="status" aria-live="polite"></span></div><p class="helptext">1. Enter your name. 2. Complete the eight workstation setup tasks. 3. Verify the boot and both network tests. 4. Print or save your actual score and task checklist for Canvas.</p>';
- const host=document.querySelector('.wrap');if(host)host.insertAdjacentElement('beforebegin',form);else document.body.prepend(form);
- const report=document.createElement('article');report.id='mocktiaPrintReport';document.body.append(report);
- const field=document.getElementById('mocktiaStudentName');const status=document.getElementById('mocktiaAssessmentStatus');
- try{field.value=localStorage.getItem(key)||''}catch(e){}
- field.addEventListener('input',()=>{try{localStorage.setItem(key,field.value)}catch(e){}});
- document.getElementById('mocktiaDate').textContent='Date: '+new Date().toLocaleDateString();
- const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
- document.getElementById('mocktiaPrintBtn').addEventListener('click',()=>{
-  const name=field.value.trim();if(name.split(/\s+/).length<2){status.textContent='Enter first and last name to print.';field.focus();return}
-  if(typeof tasks==='undefined'||typeof complete!=='function'){status.textContent='Scoring not available: contact your instructor.';return}
-  const results=tasks.map(([id,label])=>({label,done:!!complete(id)}));
-  const finished=results.filter(x=>x.done).length;
-  const score=Math.round(finished/results.length*100);
-  const now=new Date();
-  report.innerHTML='<h1>MockTIA Virtual Labs — Completion Assessment</h1><p><b>Lab:</b> '+esc(labTitle)+'</p><p><b>Student:</b> '+esc(name)+'<br><b>Date:</b> '+esc(now.toLocaleDateString())+'<br><b>Time:</b> '+esc(now.toLocaleTimeString())+'</p><h2>Practical assessment score: '+score+' / 100</h2><p><b>Objectives verified:</b> '+finished+' of '+results.length+' • <b>Status:</b> '+(finished===results.length?'All objectives complete':'Incomplete — additional tasks required')+'</p><h2>Skills checklist</h2><table><thead><tr><th>Objective</th><th>Result</th></tr></thead><tbody>'+results.map(t=>'<tr><td>'+esc(t.label)+'</td><td>'+(t.done?'PASS':'NOT COMPLETE')+'</td></tr>').join('')+'</tbody></table><p><b>Scoring:</b> Each verified objective contributes equally to a 100-point grade. Scores are based on current simulated workstation state, not the Print button.</p><p><b>Student directions:</b> In the print dialog, choose Save as PDF, then submit your PDF to Canvas.</p><footer>Created by Mr. Beaird • MockTIA Virtual Labs<br>Instructor review/signature: _______________________________________</footer>';
-  status.textContent='Current verified score: '+score+' / 100';
-  window.print();
- });
+'use strict';
+const labTitle='2.1.16 — Set Up a Desktop Computer';
+const key='mocktia_2_1_16_student_name';
+const form=document.createElement('section');form.id='mocktiaAssessment';
+form.innerHTML='<h2>MockTIA Labs · Student Completion Assessment</h2><div class="formrow"><div><label for="mocktiaStudentName">Student full name *</label><input id="mocktiaStudentName" type="text" required autocomplete="name" placeholder="First and last name"></div><div><label>Today’s date</label><span class="pill" id="mocktiaDate"></span></div><div><button id="mocktiaScoreBtn" type="button">Check My Score</button> <button id="mocktiaPrintBtn" type="button">Print / Save Assessment</button></div><span id="mocktiaAssessmentStatus" role="status" aria-live="polite"></span></div><p class="helptext">Complete the eight simulated workstation objectives. A task counts only when the simulator verifies it. Check your score, then save the printable work-order checklist as a PDF for Canvas.</p>';
+const host=document.querySelector('.wrap');if(host)host.insertAdjacentElement('beforebegin',form);else document.body.prepend(form);
+const report=document.createElement('article');report.id='mocktiaPrintReport';document.body.append(report);
+const field=document.getElementById('mocktiaStudentName');const status=document.getElementById('mocktiaAssessmentStatus');
+try{field.value=localStorage.getItem(key)||''}catch(e){}
+field.addEventListener('input',()=>{try{localStorage.setItem(key,field.value)}catch(e){}});
+document.getElementById('mocktiaDate').textContent=new Date().toLocaleDateString();
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function snapshot(){
+ if(typeof tasks==='undefined'||typeof complete!=='function'||!Array.isArray(tasks)){return null}
+ const results=tasks.map(([id,label])=>({label,done:!!complete(id)}));
+ const finished=results.filter(x=>x.done).length;
+ return {results,finished,score:Math.round(finished/results.length*100)};
+}
+function checkScore(){
+ let r;try{r=snapshot()}catch(e){r=null}
+ status.textContent=r?'Verified score: '+r.score+' / 100 · '+r.finished+' of '+r.results.length+' objectives':'Scoring unavailable — tell your instructor.';
+ return r;
+}
+document.getElementById('mocktiaScoreBtn').addEventListener('click',checkScore);
+document.getElementById('mocktiaPrintBtn').addEventListener('click',()=>{
+ const name=field.value.trim();if(name.split(/\s+/).length<2){status.textContent='Enter your first and last name before printing.';field.focus();return}
+ const r=checkScore();if(!r)return;
+ const now=new Date();
+ const rows=r.results.map((t,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(t.label)+'</td><td>'+(t.done?'Verified / Complete':'Incomplete')+'</td></tr>').join('');
+ report.innerHTML='<h1>MockTIA Labs — Desktop Setup Practical</h1><p><b>Student:</b> '+esc(name)+' &nbsp; <b>Date:</b> '+esc(now.toLocaleDateString())+'<br><b>Lab:</b> '+esc(labTitle)+'</p><h2>Final Score: '+r.score+' / 100</h2><p><b>Verified objectives:</b> '+r.finished+' / '+r.results.length+' · <b>Practical:</b> '+r.score+'/100</p><p><b>Assessment status:</b> '+(r.finished===r.results.length?'All objectives complete and verified':'Incomplete — one or more objectives are unfinished')+'</p><h2>Technician Work Order Log</h2><table><thead><tr><th>#</th><th>Practical Objective</th><th>Verification</th></tr></thead><tbody>'+rows+'</tbody></table><p><b>Scoring:</b> Each of the eight verified objectives is weighted equally. Clicking Print does not earn points.</p><p><b>Instructor review:</b> This document reports the current simulator state in this browser; the instructor may request observation or screenshots.</p><div class="sign">Student signature: _________________________________ &nbsp; Date: ______________</div><p style="text-align:center;margin-top:25px"><b>Created by Mr. Beaird</b> · MockTIA Virtual Labs</p>';
+ window.print();
+});
 })();
 </script>
 </body></html>
