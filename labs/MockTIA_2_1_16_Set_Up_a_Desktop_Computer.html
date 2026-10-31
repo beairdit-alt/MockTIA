@@ -109,4 +109,297 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #mocktiaStudentHelp{font:13px/1.55 Segoe UI,Arial,sans-serif;color:#b7e9f5;background:#0d283b;border:1px solid #247f9a;padding:10px 14px;border-radius:8px;margin:10px auto;max-width:1500px;box-sizing:border-box}
 #mocktiaStudentHelp strong{color:#55e9f6}
 @media print{#mocktiaAuthorFooter,#mocktiaStudentHelp{display:none!important}}
-</style><section id="mocktiaStudentHelp"><strong>Student steps:</strong> 1. Enter your full name. 2. Follow the “What to Do Next” directions and finish the simulation. 3. Select Check Answers or the lab’s assessment screen. 4. Use Print / Save Completion PDF and choose “Save as PDF.” 5. Submit the PDF and any required evidence to Canvas.</section><footer id="mocktiaAuthorFooter">MockTIA Labs · Created by Mr. Beaird</footer></body></html>
+</style><section id="mocktiaStudentHelp"><strong>Student steps:</strong> 1. Enter your full name. 2. Follow the “What to Do Next” directions and finish the simulation. 3. Select Check Answers or the lab’s assessment screen. 4. Use Print / Save Completion PDF and choose “Save as PDF.” 5. Submit the PDF and any required evidence to Canvas.</section><footer id="mocktiaAuthorFooter">MockTIA Labs · Created by Mr. Beaird</footer>
+
+<!-- MOCKTIA STUDENT ASSESSMENT -->
+<style>
+#mocktiaAssessment {
+  margin: 24px auto;
+  padding: 20px;
+  max-width: 1200px;
+  background: #10263d;
+  border: 1px solid #45e7fb;
+  border-radius: 14px;
+  color: #eef8ff;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+#mocktiaAssessment h2 {
+  margin: 0 0 12px;
+  color: #45e7fb;
+}
+
+#mocktiaAssessment label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+#mocktiaAssessment input {
+  background: #fff;
+  color: #172638;
+  border: 1px solid #7acde0;
+  border-radius: 7px;
+  padding: 11px;
+  width: min(100%, 360px);
+}
+
+#mocktiaAssessment button {
+  padding: 11px 18px;
+  margin: 12px 8px 0 0;
+  background: #19cbea;
+  color: #061827;
+  font-weight: bold;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#mocktiaAssessment .score {
+  color: #8ef1bd;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+#mocktiaPrintReport {
+  display: none;
+}
+
+@media print {
+  body > *:not(#mocktiaPrintReport) {
+    display: none !important;
+  }
+
+  #mocktiaPrintReport {
+    display: block !important;
+    color: black;
+    background: white;
+    padding: 20px;
+    font: 14px/1.6 Arial, sans-serif;
+  }
+
+  #mocktiaPrintReport h1 {
+    color: #17304b;
+  }
+
+  #mocktiaPrintReport table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+  }
+
+  #mocktiaPrintReport th,
+  #mocktiaPrintReport td {
+    padding: 10px;
+    border: 1px solid #888;
+    text-align: left;
+  }
+
+  #mocktiaPrintReport th {
+    background: #e9f1f7;
+  }
+}
+</style>
+
+<section id="mocktiaAssessment">
+  <h2>MockTIA Labs — Student Completion Assessment</h2>
+
+  <p>
+    Enter your full name, finish the lab, and review your
+    score before submitting your completion report.
+  </p>
+
+  <label for="mocktiaStudentName">
+    Student Full Name
+  </label>
+
+  <input
+    id="mocktiaStudentName"
+    type="text"
+    placeholder="First and Last Name"
+    autocomplete="name">
+
+  <p>
+    Date: <strong id="mocktiaDate"></strong>
+  </p>
+
+  <p class="score">
+    Score: <span id="mocktiaScore">0</span> / 100
+  </p>
+
+  <button type="button" id="mocktiaCheckScore">
+    Check My Score
+  </button>
+
+  <button type="button" id="mocktiaPrintButton">
+    Print / Save Completion PDF
+  </button>
+
+  <p style="font-size:12px;color:#a9c6d9">
+    Created by Mr. Beaird
+  </p>
+</section>
+
+<article id="mocktiaPrintReport"></article>
+
+<script>
+(function () {
+  "use strict";
+
+  const LAB_TITLE = "2.1.16 — Set Up a Desktop Computer";
+  const nameInput = document.getElementById(
+    "mocktiaStudentName"
+  );
+
+  document.getElementById("mocktiaDate").textContent =
+    new Date().toLocaleDateString();
+
+  const savedNameKey = "MockTIA_student_full_name";
+
+  try {
+    nameInput.value = localStorage.getItem(savedNameKey) || "";
+  } catch (error) {
+    // Browser storage may be disabled.
+  }
+
+  nameInput.addEventListener("input", function () {
+    try {
+      localStorage.setItem(savedNameKey, nameInput.value);
+    } catch (error) {}
+  });
+
+  const objectives = [
+    ["pcPower", "Connect desktop power"],
+    ["monitorPower", "Connect monitor power"],
+    ["video", "Connect HDMI video cable"],
+    ["keyboard", "Connect USB keyboard"],
+    ["mouse", "Connect USB mouse"],
+    ["network", "Connect Cat6 Ethernet"],
+    ["booted", "Boot the computer successfully"],
+    ["verified", "Verify local and internet connectivity"]
+  ];
+
+  function getResults() {
+    const results = objectives.map(function (item) {
+      let passed = false;
+
+      try {
+        // Uses the desktop lab's real completion function.
+        passed = !!complete(item[0]);
+      } catch (error) {
+        passed = false;
+      }
+
+      return {
+        title: item[1],
+        passed: passed
+      };
+    });
+
+    const passedCount = results.filter(function (item) {
+      return item.passed;
+    }).length;
+
+    return {
+      results: results,
+      passedCount: passedCount,
+      score: Math.round(
+        (passedCount / objectives.length) * 100
+      )
+    };
+  }
+
+  function updateScore() {
+    const assessment = getResults();
+
+    document.getElementById("mocktiaScore").textContent =
+      assessment.score;
+
+    return assessment;
+  }
+
+  document.getElementById("mocktiaCheckScore")
+    .addEventListener("click", updateScore);
+
+  document.getElementById("mocktiaPrintButton")
+    .addEventListener("click", function () {
+
+      const studentName = nameInput.value.trim();
+
+      if (studentName.split(/\s+/).length < 2) {
+        alert("Please enter your first and last name.");
+        nameInput.focus();
+        return;
+      }
+
+      const assessment = updateScore();
+
+      function escapeHTML(value) {
+        return String(value).replace(
+          /[&<>"']/g,
+          function (character) {
+            return {
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;"
+            }[character];
+          }
+        );
+      }
+
+      const rows = assessment.results.map(function (item) {
+        return "<tr><td>" +
+          escapeHTML(item.title) +
+          "</td><td>" +
+          (item.passed ? "PASS" : "NOT COMPLETE") +
+          "</td></tr>";
+      }).join("");
+
+      document.getElementById("mocktiaPrintReport")
+        .innerHTML = `
+          <h1>MockTIA Virtual Labs</h1>
+          <h2>Student Completion Assessment</h2>
+
+          <p><b>Lab:</b> ${LAB_TITLE}</p>
+          <p><b>Student:</b> ${escapeHTML(studentName)}</p>
+          <p><b>Date:</b> ${new Date().toLocaleDateString()}</p>
+
+          <h2>Final Score: ${assessment.score} / 100</h2>
+
+          <p>
+            Completed Objectives:
+            ${assessment.passedCount} of ${objectives.length}
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Lab Objective</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+
+          <p><b>Completion:</b>
+            ${assessment.passedCount === objectives.length
+              ? "All objectives completed"
+              : "Additional work required"}
+          </p>
+
+          <p style="margin-top:35px">
+            Created by Mr. Beaird
+          </p>
+        `;
+
+      window.print();
+    });
+
+  updateScore();
+})();
+</script>
+<!-- END MOCKTIA STUDENT ASSESSMENT -->
+
+</body></html>
