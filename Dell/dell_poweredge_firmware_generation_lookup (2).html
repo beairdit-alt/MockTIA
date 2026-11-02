@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dell PowerEdge Generation / BIOS / iDRAC / Lifecycle Lookup</title>
+<style>
+:root{
+ --blue:#0672ce;--dark:#0c2132;--ink:#172b3a;--muted:#60798b;--line:#c9d6df;
+ --bg:#eaf1f5;--panel:#fff;--green:#1f8f59;--amber:#a86f00;--red:#b6382d
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#dce9f1,#f7fafc);font-family:Segoe UI,Arial,sans-serif;color:var(--ink)}
+header{background:linear-gradient(100deg,#07304e,#006bb3);color:white;padding:22px}
+header .wrap,.wrap{max-width:1250px;margin:auto}
+h1{font-weight:500;margin:0 0 5px;font-size:30px}
+header p{margin:0;color:#d7efff}
+main{padding:20px}
+.card{background:white;border:1px solid var(--line);box-shadow:0 4px 18px rgba(0,0,0,.07);padding:18px;margin-bottom:16px;border-radius:5px}
+.warning{background:#fff7dc;border-left:5px solid #d59a17;padding:12px 14px;margin:12px 0;color:#674b0b}
+.info{background:#e9f5fc;border-left:5px solid var(--blue);padding:12px 14px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+label{display:block;font-size:13px;font-weight:600;color:#4c6474;margin:0 0 5px}
+select,input{width:100%;padding:10px;border:1px solid #aebfca;background:#fff;font:inherit;color:#173044}
+.result{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.metric{border:1px solid #bdd0dc;background:linear-gradient(#fff,#f0f5f8);padding:14px;min-height:110px}
+.metric small{display:block;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
+.metric strong{display:block;font-size:24px;color:var(--blue);margin:8px 0}
+.metric span{font-size:12px;color:#597080}
+h2{font-weight:500;margin-top:0;color:#253f51}
+h3{font-weight:500;color:#324e60}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th{background:#eaf1f5;text-align:left;color:#36556a}
+th,td{padding:9px;border:1px solid #c9d6df}
+tr:hover td{background:#f7fbfd}
+.tag{display:inline-block;background:#dff0fb;color:#075f98;padding:2px 7px;border-radius:10px;font-size:11px}
+.ok{color:var(--green);font-weight:700}.legacy{color:var(--amber);font-weight:700}
+button{padding:9px 14px;border:1px solid #8ca8ba;background:linear-gradient(#fff,#e8eef2);cursor:pointer;color:#27485e}
+button.primary{background:linear-gradient(#1687cd,#0067aa);color:#fff;border-color:#005b97}
+.searchrow{display:flex;gap:8px}.searchrow input{flex:1}
+details{margin:12px 0;border:1px solid #c8d6df;background:#fafcfd}
+summary{cursor:pointer;padding:11px;background:#eef4f7;font-weight:600}
+details>div{padding:12px}
+footer{max-width:1250px;margin:0 auto;padding:5px 20px 35px;color:#667e8d;font-size:12px}
+@media(max-width:800px){.grid,.grid4,.result{grid-template-columns:1fr}.searchrow{flex-direction:column}}
+.sim-progress{height:24px;border:1px solid #aabac5;background:#eef3f6;overflow:hidden;margin:10px 0}.sim-progress>div{height:100%;width:0;background:linear-gradient(90deg,#1687cd,#0067aa);transition:.35s}.steps td:nth-child(2){font-weight:700}.pass{color:var(--green)}.wait{color:#748997}.running{color:var(--blue)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Dell PowerEdge Firmware Reference</h1>
+<p>Generation → Model → Latest BIOS / iDRAC / Lifecycle Controller classroom lookup</p>
+</div></header>
+
+<main class="wrap">
+<div class="card">
+<h2>PowerEdge Firmware Lookup</h2>
+<div class="info">
+<b>Common Lab Models:</b>
+<div class="grid" style="margin-top:10px">
+<div>
+<label>Quick Select Server</label>
+<select id="quickModel" onchange="quickSelectModel()">
+<option value="">Choose a common lab server...</option>
+<option value="11G|R610">PowerEdge R610</option>
+<option value="11G|R710">PowerEdge R710</option>
+<option value="12G|T620">PowerEdge T620</option>
+<option value="13G|R730">PowerEdge R730</option>
+<option value="14G|R640">PowerEdge R640</option>
+<option value="14G|R740">PowerEdge R740</option>
+<option value="14G|R740xd">PowerEdge R740xd</option>
+</select>
+</div>
+<div style="align-self:end">
+<button class="primary" onclick="quickSelectModel()">Load Selected Model</button>
+</div>
+</div>
+</div>
+<div class="warning"><b>Important:</b> Firmware can change. Before actually updating a server, verify the exact Service Tag/model on Dell Support and read prerequisites. Never flash firmware only because a classroom chart says it is newer.</div>
+
+<div class="grid">
+<div>
+<label>PowerEdge Generation</label>
+<select id="generation" onchange="loadModels()"></select>
+</div>
+<div>
+<label>Server Model</label>
+<select id="model" onchange="showModel()"></select>
+</div>
+</div>
+
+<div class="result">
+<div class="metric"><small>Generation</small><strong id="outGen">—</strong><span id="outEra"></span></div>
+<div class="metric"><small>Latest BIOS</small><strong id="outBios">—</strong><span id="outBiosNote"></span></div>
+<div class="metric"><small>iDRAC</small><strong id="outIdrac">—</strong><span id="outIdracType"></span></div>
+<div class="metric"><small>Lifecycle Controller</small><strong id="outLc">—</strong><span id="outLcNote"></span></div>
+</div>
+<div class="info" id="sourceNote">Select a model to see its firmware reference.</div>
+</div>
+
+<div class="card" id="idracLcSimulator">
+<h2>Simulated iDRAC + Lifecycle Controller Update</h2>
+<div class="info"><b>Training purpose:</b> Practice updating Dell remote-management firmware. On many PowerEdge generations, Dell distributes this as a combined <b>iDRAC with Lifecycle Controller</b> firmware package.</div>
+<div class="grid"><div><label>Selected Server</label><input id="simServer" readonly></div><div><label>Update Method</label><select id="simMethod"><option>Lifecycle Controller (F10) — Firmware Update</option><option>iDRAC Web Interface — Maintenance / System Update</option><option>Dell Update Package from supported OS</option><option>Local USB / repository package</option></select></div></div>
+<div class="result"><div class="metric"><small>Current iDRAC</small><strong id="simCurrentIdrac">—</strong><span>Simulated starting version</span></div><div class="metric"><small>Target iDRAC</small><strong id="simTargetIdrac">—</strong><span>Reference target from this page</span></div><div class="metric"><small>Lifecycle Controller</small><strong id="simTargetLc">—</strong><span>Combined or integrated management firmware</span></div><div class="metric"><small>Controller Reset</small><strong style="font-size:20px">Required</strong><span>Remote management becomes temporarily unavailable during reset</span></div></div>
+<div class="warning" id="simVerifyWarning" style="display:none"></div>
+<h3>Update Workflow</h3><table class="steps"><thead><tr><th>Step</th><th>Status</th><th>Student task</th></tr></thead><tbody>
+<tr><td>1</td><td id="us1" class="wait">Waiting</td><td>Confirm exact PowerEdge model and current iDRAC/Lifecycle Controller version.</td></tr>
+<tr><td>2</td><td id="us2" class="wait">Waiting</td><td>Verify the firmware package is intended for this server generation/model.</td></tr>
+<tr><td>3</td><td id="us3" class="wait">Waiting</td><td>Confirm stable power, remote-access plan, and maintenance window.</td></tr>
+<tr><td>4</td><td id="us4" class="wait">Waiting</td><td>Upload or select the iDRAC-with-Lifecycle-Controller firmware package.</td></tr>
+<tr><td>5</td><td id="us5" class="wait">Waiting</td><td>Validate package compatibility and stage the update.</td></tr>
+<tr><td>6</td><td id="us6" class="wait">Waiting</td><td>Apply the update and allow the iDRAC controller to reset.</td></tr>
+<tr><td>7</td><td id="us7" class="wait">Waiting</td><td>Reconnect to iDRAC and verify the new firmware version and Lifecycle Controller health.</td></tr>
+</tbody></table>
+<div class="sim-progress"><div id="simBar"></div></div><div id="simStatus" style="min-height:42px;color:#4d6576">Ready to run the simulation.</div>
+<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap"><button onclick="resetIdracSim()">Reset</button><button class="primary" onclick="startIdracSim()">Start Simulated iDRAC / Lifecycle Update</button></div>
+</div>
+
+<div class="card">
+<h2>Generation Cheat Sheet</h2>
+<table>
+<thead><tr><th>Generation</th><th>Typical Model Pattern</th><th>Remote Management</th><th>Lifecycle Controller</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><b>11G</b></td><td>R610, R710, T610</td><td>iDRAC6</td><td>Lifecycle Controller 1.x era</td><td class="legacy">Legacy / model-specific</td></tr>
+<tr><td><b>12G</b></td><td>R320, R420, R520, R620, R720</td><td>iDRAC7</td><td>Bundled with iDRAC firmware</td><td>F10 Lifecycle Controller</td></tr>
+<tr><td><b>13G</b></td><td>R330, R430, R530, R630, R730</td><td>iDRAC8</td><td>Bundled with iDRAC firmware</td><td>Common lab generation</td></tr>
+<tr><td><b>14G</b></td><td>R340, R440, R540, R640, R740</td><td>iDRAC9</td><td>Integrated with iDRAC9</td><td>7.x iDRAC firmware branch</td></tr>
+<tr><td><b>15G</b></td><td>R350, R450, R550, R650, R750</td><td>iDRAC9</td><td>Integrated with iDRAC9</td><td>Modern PowerEdge</td></tr>
+<tr><td><b>16G</b></td><td>R360, R460, R660, R760</td><td>iDRAC9</td><td>Integrated with iDRAC9</td><td>Modern PowerEdge</td></tr>
+<tr><td><b>17G</b></td><td>R470, R570, R670, R770</td><td>Newer iDRAC generation firmware branch</td><td>Integrated management lifecycle</td><td>Current-generation platforms</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h2>All Models in This Classroom Reference</h2>
+<div class="searchrow"><input id="search" placeholder="Search model, BIOS, iDRAC, generation..." oninput="renderTable()"><button onclick="document.getElementById('search').value='';renderTable()">Clear</button></div>
+<div style="overflow:auto"><table>
+<thead><tr><th>Gen</th><th>Model</th><th>BIOS</th><th>iDRAC</th><th>Lifecycle Controller</th><th>Source status</th></tr></thead>
+<tbody id="allRows"></tbody>
+</table></div>
+</div>
+
+<div class="card">
+<h2>Instructor Notes</h2>
+<details open><summary>Why iDRAC and Lifecycle Controller sometimes show the same version</summary><div>On many PowerEdge generations, Dell distributes the management firmware as <b>“iDRAC with Lifecycle Controller”</b>. That means a single firmware package updates both integrated management components. The Lifecycle Controller does not necessarily have a separate downloadable version number.</div></details>
+<details><summary>Why an older generation may not appear in Dell's current code-version table</summary><div>Older 11G–13G platforms are beyond the normal current-platform lifecycle. Their latest available releases are usually found on the model-specific Dell support pages rather than the modern “latest code versions” matrix.</div></details>
+<details><summary>Safe update order for class discussion</summary><div>Identify the exact model and Service Tag → document current versions → check prerequisites and compatibility → verify backups/recovery and stable power → schedule downtime → update using a supported Dell method → reboot when required → verify versions and hardware health → document the change.</div></details>
+</div>
+</main>
+
+<footer>
+Data snapshot assembled September 28, 2026 from Dell Support references. This is an educational lookup, not an automated firmware compliance tool.
+</footer>
+
+<script>
+const data = {
+"11G":{
+ era:"2009–2012 era", idracType:"iDRAC6", models:{
+  "R610":{bios:"6.6.0*",idrac:"2.92*",lc:"1.x / verify model",note:"Legacy reference — verify on Dell Support before use.",status:"Legacy / verify"},
+  "R710":{bios:"6.5.0",idrac:"2.92*",lc:"1.x / verify model",note:"Dell model-specific support; R710 BIOS 6.5.0 is a late Dell release.",status:"Legacy / model-specific"},
+  "T610":{bios:"6.6.0*",idrac:"2.92*",lc:"1.x / verify model",note:"Legacy reference — verify exact platform support.",status:"Legacy / verify"}
+ }},
+"12G":{
+ era:"2012–2014 era", idracType:"iDRAC7", models:{
+  "R220":{bios:"1.12.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 + Lifecycle Controller combined package.",status:"Dell model/package family"},
+  "R320":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 + Lifecycle Controller combined package.",status:"Dell package family"},
+  "R420":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 + Lifecycle Controller combined package.",status:"Dell package family"},
+  "R520":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 + Lifecycle Controller combined package.",status:"Dell package family"},
+  "R620":{bios:"2.9.0",idrac:"2.65.65.65",lc:"2.65.65.65",note:"Directly verified from Dell model/package pages.",status:"Verified Dell release"},
+  "R720":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 package explicitly lists R720 compatibility.",status:"Dell package family"},
+  "R720xd":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 package explicitly lists R720XD compatibility.",status:"Dell package family"},
+  "T320":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 package explicitly lists T320 compatibility.",status:"Dell package family"},
+  "T420":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 package explicitly lists T420 compatibility.",status:"Dell package family"},
+  "T620":{bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",note:"iDRAC7 package explicitly lists T620 compatibility.",status:"Dell package family"}
+ }},
+"13G":{
+ era:"2014–2017 era", idracType:"iDRAC8", models:{
+  "R230":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R230.",status:"iDRAC verified / BIOS verify"},
+  "R330":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R330.",status:"iDRAC verified / BIOS verify"},
+  "R430":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R430.",status:"iDRAC verified / BIOS verify"},
+  "R530":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R530.",status:"iDRAC verified / BIOS verify"},
+  "R630":{bios:"2.19.0",idrac:"2.83.83.83",lc:"2.83.83.83",note:"Direct Dell BIOS release covers R630/R730/R730XD.",status:"Verified Dell release"},
+  "R730":{bios:"2.19.0",idrac:"2.83.83.83",lc:"2.83.83.83",note:"Directly verified from Dell BIOS and iDRAC8/Lifecycle releases.",status:"Verified Dell release"},
+  "R730xd":{bios:"2.19.0",idrac:"2.83.83.83",lc:"2.83.83.83",note:"Direct Dell BIOS release covers R630/R730/R730XD.",status:"Verified Dell release"},
+  "R830":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R830.",status:"iDRAC verified / BIOS verify"},
+  "R930":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists R930.",status:"iDRAC verified / BIOS verify"},
+  "T630":{bios:"2.x — verify",idrac:"2.83.83.83",lc:"2.83.83.83",note:"iDRAC8 combined package explicitly lists T630.",status:"iDRAC verified / BIOS verify"}
+ }},
+"14G":{
+ era:"2017–2021 era", idracType:"iDRAC9", models:{
+  "R240":{bios:"2.24.1",idrac:"7.00.00.184/185†",lc:"Integrated",note:"Dell current-code matrix; exact iDRAC latest can vary by 14G model.",status:"Dell 2026 code matrix"},
+  "R340":{bios:"2.24.1",idrac:"7.00.00.184/185†",lc:"Integrated",note:"Dell current-code matrix; verify exact model row.",status:"Dell 2026 code matrix"},
+  "R440":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"Current Dell 14G code family.",status:"Dell 2026 code matrix"},
+  "R540":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"Current Dell 14G code family.",status:"Dell 2026 code matrix"},
+  "R640":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"BIOS 2.28.1 released Aug 21, 2026; Dell current-code matrix lists modern 14G iDRAC7.x branch.",status:"Verified Dell 2026"},
+  "R740":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"BIOS 2.28.1 released Aug 21, 2026.",status:"Verified Dell 2026"},
+  "R740xd":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"Shares R740/R640 firmware family.",status:"Verified Dell 2026"},
+  "R840":{bios:"2.28.x†",idrac:"7.00.00.185",lc:"Integrated",note:"Use Dell exact model row before production update.",status:"Dell matrix / verify"},
+  "R940":{bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",note:"R940 is included in Dell 2.28.1 BIOS family.",status:"Verified Dell 2026"},
+  "T440":{bios:"2.28.x†",idrac:"7.00.00.185",lc:"Integrated",note:"Current code family; verify exact BIOS row.",status:"Dell matrix / verify"},
+  "T640":{bios:"2.28.x†",idrac:"7.00.00.185",lc:"Integrated",note:"Current code family; verify exact BIOS row.",status:"Dell matrix / verify"}
+ }},
+"15G":{
+ era:"2021–2023 era", idracType:"iDRAC9", models:{
+  "R250":{bios:"1.17.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix, updated Sep 10 2026.",status:"Dell latest-code matrix"},
+  "R350":{bios:"1.17.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R450":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R550":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R650":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R650xs":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R6515":{bios:"2.24.1",idrac:"7.30.30.51",lc:"Integrated",note:"AMD platform; Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R6525":{bios:"2.24.1",idrac:"7.30.30.51",lc:"Integrated",note:"AMD platform; Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R750":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R750xa":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R750xs":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R7515":{bios:"2.24.1",idrac:"7.30.30.51",lc:"Integrated",note:"AMD platform; Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "R7525":{bios:"2.24.1",idrac:"7.30.30.51",lc:"Integrated",note:"AMD platform; Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "T150":{bios:"1.17.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "T350":{bios:"1.17.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"},
+  "T550":{bios:"1.22.1",idrac:"7.30.30.51",lc:"Integrated",note:"Dell current-code matrix.",status:"Dell latest-code matrix"}
+ }},
+"16G":{
+ era:"2023–2025 era", idracType:"iDRAC9", models:{
+  "R360":{bios:"2.6.3†",idrac:"7.30.30.54",lc:"Integrated",note:"16G branch; verify exact model row for BIOS.",status:"Dell 2026 code family"},
+  "R460":{bios:"2.11.x†",idrac:"7.30.30.54",lc:"Integrated",note:"16G branch; verify exact model row.",status:"Dell 2026 code family"},
+  "R660":{bios:"2.11.x†",idrac:"7.30.30.54",lc:"Integrated",note:"16G branch; verify exact model row.",status:"Dell 2026 code family"},
+  "R660xs":{bios:"2.11.x†",idrac:"7.30.30.54",lc:"Integrated",note:"16G branch; verify exact model row.",status:"Dell 2026 code family"},
+  "R6615":{bios:"1.17.1†",idrac:"7.30.30.54",lc:"Integrated",note:"AMD platform; verify exact model row.",status:"Dell 2026 code family"},
+  "R6625":{bios:"1.17.1",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R760":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R760xa":{bios:"2.11.2",idrac:"7.30.30.51",lc:"Integrated",note:"Dell latest-code matrix lists .51 for this model.",status:"Dell latest-code matrix"},
+  "R760xd2":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R760xs":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R7615":{bios:"1.17.1",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R7625":{bios:"1.17.1",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R860":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R960":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "T160":{bios:"2.6.3",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "T360":{bios:"2.6.3",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "T560":{bios:"2.11.2",idrac:"7.30.30.54",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"}
+ }},
+"17G":{
+ era:"2024–current", idracType:"Current integrated iDRAC branch", models:{
+  "R470":{bios:"1.9.5",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix, updated Sep 10 2026.",status:"Dell latest-code matrix"},
+  "R4715":{bios:"1.7.7",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R570":{bios:"1.9.5",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R5715":{bios:"1.7.7",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R670":{bios:"1.9.5",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R6715":{bios:"1.7.7",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R6725":{bios:"1.7.6",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"},
+  "R770":{bios:"1.9.5",idrac:"1.30.40.51",lc:"Integrated",note:"Dell latest-code matrix.",status:"Dell latest-code matrix"}
+ }}
+};
+
+function quickSelectModel(){
+ const q=document.getElementById('quickModel').value;
+ if(!q)return;
+ const parts=q.split('|');
+ document.getElementById('generation').value=parts[0];
+ loadModels();
+ document.getElementById('model').value=parts[1];
+ showModel();
+}
+function loadGenerations(){
+ const g=document.getElementById('generation');
+ Object.keys(data).forEach(k=>{let o=document.createElement('option');o.value=k;o.textContent=k+' PowerEdge';g.appendChild(o)});
+ g.value='12G';loadModels();
+}
+function loadModels(){
+ const gen=document.getElementById('generation').value,m=document.getElementById('model');m.innerHTML='';
+ Object.keys(data[gen].models).forEach(k=>{let o=document.createElement('option');o.value=k;o.textContent='PowerEdge '+k;m.appendChild(o)});
+ if(gen==='12G'&&data[gen].models.R620)m.value='R620';
+ showModel();
+}
+function showModel(){
+ const gen=document.getElementById('generation').value,model=document.getElementById('model').value,d=data[gen].models[model];
+ document.getElementById('outGen').textContent=gen;
+ document.getElementById('outEra').textContent=data[gen].era;
+ document.getElementById('outBios').textContent=d.bios;
+ document.getElementById('outBiosNote').textContent=d.bios.includes('*')||d.bios.includes('†')?'* / † = verify exact model before flashing':'Latest/reference version in this data set';
+ document.getElementById('outIdrac').textContent=d.idrac;
+ document.getElementById('outIdracType').textContent=data[gen].idracType;
+ document.getElementById('outLc').textContent=d.lc;
+ document.getElementById('outLcNote').textContent=(d.lc==='Integrated'?'Lifecycle Controller is part of the integrated management firmware':'Combined iDRAC/Lifecycle package where shown');
+ document.getElementById('sourceNote').innerHTML='<b>PowerEdge '+model+':</b> '+d.note+' <span class="tag">'+d.status+'</span>';
+ syncIdracSim();
+}
+
+function previousMgmtVersion(target){const m=(target||'').match(/\d+(?:\.\d+)+/);if(!m)return 'Older installed version';const p=m[0].split('.').map(Number);if(p.length>=4&&p[3]>0)p[3]--;else if(p.length>=3&&p[2]>0)p[2]--;else if(p.length>=2&&p[1]>0)p[1]--;return p.join('.');}
+function syncIdracSim(){const gen=document.getElementById('generation').value,model=document.getElementById('model').value;if(!gen||!model)return;const d=data[gen].models[model];document.getElementById('simServer').value='PowerEdge '+model+' ('+gen+')';document.getElementById('simCurrentIdrac').textContent=previousMgmtVersion(d.idrac);document.getElementById('simTargetIdrac').textContent=d.idrac;document.getElementById('simTargetLc').textContent=d.lc;const w=document.getElementById('simVerifyWarning');if(/verify|\*|†|x/i.test(d.idrac+' '+d.lc+' '+d.bios)){w.style.display='block';w.innerHTML='<b>Instructor checkpoint:</b> This model contains a family/verify marker. In a real update, confirm the exact Dell package against the Service Tag before continuing.';}else{w.style.display='none';w.innerHTML='';}resetIdracSim(false);}
+let idracTimer=null;
+function setUpdateStep(n,state,text){const e=document.getElementById('us'+n);if(!e)return;e.textContent=text||state;e.className=state;}
+function resetIdracSim(msg=true){if(idracTimer)clearInterval(idracTimer);idracTimer=null;document.getElementById('simBar').style.width='0%';for(let i=1;i<=7;i++)setUpdateStep(i,'wait','Waiting');if(msg)document.getElementById('simStatus').textContent='Simulation reset. Ready to begin.';}
+function startIdracSim(){resetIdracSim(false);const gen=document.getElementById('generation').value,model=document.getElementById('model').value,d=data[gen].models[model],method=document.getElementById('simMethod').value;const stages=[[1,12,'Inventorying PowerEdge '+model+' and current management firmware...'],[2,26,'Validating firmware package for '+gen+'...'],[3,38,'Checking maintenance window, power stability, and recovery access...'],[4,56,'Selecting package through '+method+'...'],[5,71,'Validating and staging the iDRAC/Lifecycle Controller update...'],[6,88,'Applying firmware. iDRAC is resetting; remote management is temporarily unavailable...'],[7,100,'Reconnected. Verifying iDRAC '+d.idrac+' and Lifecycle Controller '+d.lc+'...']];let i=0;document.getElementById('simStatus').textContent='Starting simulated update...';idracTimer=setInterval(()=>{if(i>=stages.length){clearInterval(idracTimer);idracTimer=null;document.getElementById('simStatus').innerHTML='<span class="pass"><b>Simulation complete.</b></span> Verify Lifecycle Log, controller health, network access, and document the change.';return;}const [step,pct,msg]=stages[i];for(let x=1;x<step;x++)setUpdateStep(x,'pass','Complete');setUpdateStep(step,step===7?'pass':'running',step===7?'Complete':'Running');document.getElementById('simBar').style.width=pct+'%';document.getElementById('simStatus').textContent=msg;i++;},700);}
+function renderTable(){
+ const q=(document.getElementById('search').value||'').toLowerCase(),tb=document.getElementById('allRows');tb.innerHTML='';
+ Object.entries(data).forEach(([gen,g])=>Object.entries(g.models).forEach(([m,d])=>{
+  let text=[gen,m,d.bios,d.idrac,d.lc,d.status].join(' ').toLowerCase();if(q&&!text.includes(q))return;
+  let tr=document.createElement('tr');tr.innerHTML='<td><b>'+gen+'</b></td><td>PowerEdge '+m+'</td><td>'+d.bios+'</td><td>'+d.idrac+'</td><td>'+d.lc+'</td><td>'+d.status+'</td>';tb.appendChild(tr);
+ }));
+}
+loadGenerations();renderTable();
+</script>
+</body>
+</html>

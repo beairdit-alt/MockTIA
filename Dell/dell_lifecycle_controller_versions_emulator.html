@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dell PowerEdge Lifecycle Controller Classroom Emulator</title>
+<style>
+:root{
+  --blue:#0672ce;--blue2:#005ea8;--dark:#183247;--bg:#e8eef2;--panel:#fff;
+  --line:#c4d1da;--ink:#1e2f3b;--muted:#667d8d;--ok:#228c58;--warn:#b97800;--bad:#bf3d32;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Segoe UI,Arial,sans-serif;color:var(--ink)}
+button,input,select{font:inherit}
+#boot{position:fixed;inset:0;background:#07131d;color:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.logo{width:78px;height:78px;border:4px solid #2ca3eb;border-radius:50%;display:grid;place-items:center;color:#61c1fa;font-weight:800;font-size:20px}
+.spinner{width:40px;height:40px;border:4px solid #274455;border-top-color:#4eb6f4;border-radius:50%;animation:spin 1s linear infinite;margin:18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#app{display:none;min-height:100vh}
+header{height:72px;background:linear-gradient(#fff,#edf2f5);border-bottom:1px solid #9fb0bb;display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+.brand{display:flex;align-items:center;gap:12px}
+.slogo{width:42px;height:42px;border:3px solid var(--blue);border-radius:50%;display:grid;place-items:center;color:var(--blue);font-weight:800;font-size:13px}
+.brand h1{font-size:21px;font-weight:500;margin:0}.brand small{color:var(--muted)}
+.toptools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.toptools select{padding:7px;border:1px solid #a8bac5;background:#fff}
+.toptools button{border:0;background:none;color:var(--blue);cursor:pointer}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 72px)}
+aside{background:linear-gradient(180deg,#f5f8fa,#e6edf1);border-right:1px solid #aebdc7}
+.serverbox{padding:14px 16px;border-bottom:1px solid #bccbd4;background:#fdfefe}
+.serverbox strong{display:block;color:#233e50}.serverbox span{font-size:11px;color:#6c8290}
+.nav{padding:6px 0}
+.navitem{padding:11px 16px;border-bottom:1px solid #d2dce2;cursor:pointer;font-size:13px;color:#355265}
+.navitem:hover,.navitem.active{background:#fff;color:var(--blue);box-shadow:inset 4px 0 var(--blue)}
+.navitem .ico{display:inline-block;width:25px;text-align:center}
+main{background:#fff;min-width:0}
+.crumb{padding:9px 18px;background:#f4f7f9;border-bottom:1px solid #d0dce4;color:#667f90;font-size:12px}
+.workspace{padding:18px;max-width:1300px}
+.page{display:none}.page.active{display:block}
+h2{font-weight:500;margin:0 0 5px;color:#2a4759}.subtitle{font-size:13px;color:var(--muted);margin-bottom:15px}
+.banner{background:#eaf5fc;border-left:5px solid var(--blue);padding:11px 13px;margin-bottom:14px}
+.warning{background:#fff7df;border-left:5px solid #d99a14;padding:11px 13px;margin:12px 0}
+.card{border:1px solid var(--line);background:#fff;margin:12px 0}
+.cardhead{background:linear-gradient(#f6f8f9,#e7edf1);padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600;color:#385365}
+.cardbody{padding:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.metric{border:1px solid #c4d2db;background:#f9fbfc;padding:12px;min-height:96px}
+.metric small{display:block;text-transform:uppercase;color:#738897;font-size:10px;font-weight:700}
+.metric strong{display:block;font-size:21px;color:var(--blue);margin:7px 0}
+.metric span{font-size:11px;color:#607686}
+.tilegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{border:1px solid #b9c9d3;background:linear-gradient(#fff,#f3f6f8);padding:16px;min-height:120px;cursor:pointer}
+.tile:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(0,118,206,.14)}
+.tile h3{margin:2px 0 7px;font-size:16px;color:#2e4c5e}.tile p{margin:0;color:#6b7f8c;font-size:12px;line-height:1.4}
+label{display:block;font-size:12px;font-weight:600;color:#506978;margin:6px 0 4px}
+select,input[type=text],input[type=number]{width:100%;padding:8px;border:1px solid #aebdc7;background:#fff;color:#213846}
+.btn{padding:7px 13px;border:1px solid #98aab5;background:linear-gradient(#fff,#e7ecef);color:#284b61;cursor:pointer}
+.primary{background:linear-gradient(#1687ce,#0069ae);color:#fff;border-color:#005d9b}
+.danger{background:linear-gradient(#dc5e53,#b6382e);color:#fff;border-color:#9d2f27}
+.actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#e9f0f4;text-align:left;color:#3e596b}th,td{border:1px solid #c5d1d8;padding:8px}
+.ok{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.progress{height:19px;border:1px solid #aebcc5;background:#edf2f5;overflow:hidden;margin:10px 0}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,#4da7dc,#0572bd);transition:.35s}
+.log{font-family:Consolas,monospace;background:#101a22;color:#d6e9f4;padding:12px;white-space:pre-wrap;min-height:130px;font-size:12px}
+.drivegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.drive{border:2px solid #8fa5b3;padding:12px;text-align:center;background:#f8fbfc;cursor:pointer}
+.drive.selected{border-color:var(--blue);background:#e7f5fe}.drive.failed{border-color:var(--bad);background:#fff0ed}
+.task{border-left:4px solid var(--blue);background:#f0f7fb;padding:10px 12px;margin:9px 0}
+.task.done{border-left-color:var(--ok);background:#edf9f3}
+.wizard{display:flex;border:1px solid #c4d0d8;margin-bottom:12px}.wizard span{flex:1;text-align:center;padding:8px;background:#edf3f6;font-size:11px;border-right:1px solid #c4d0d8}.wizard span.on{background:#d8effd;color:#005d94;font-weight:700}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:5000;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{width:min(720px,95vw);background:#fff;border:1px solid #667f8f;box-shadow:0 15px 40px rgba(0,0,0,.35)}.modalhead{padding:10px 13px;background:linear-gradient(#f6f8f9,#dfe7eb);border-bottom:1px solid #a9bac5;font-weight:600}.modalbody{padding:15px;max-height:75vh;overflow:auto}
+footer{padding:10px 18px;color:#718491;background:#f2f6f8;border-top:1px solid #d0dbe2;font-size:11px}
+@media(max-width:900px){.shell{grid-template-columns:1fr}aside{display:none}.grid2,.grid3,.grid4,.tilegrid{grid-template-columns:1fr}.drivegrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="boot">
+ <div class="logo">PE</div>
+ <h2>Lifecycle Controller</h2>
+ <div>Initializing classroom management environment...</div>
+ <div class="spinner"></div>
+ <small>EDUCATIONAL SIMULATION — NO REAL HARDWARE IS MODIFIED</small>
+</div>
+
+<div id="app">
+<header>
+ <div class="brand"><div class="slogo">PE</div><div><h1>PowerEdge Lifecycle Controller</h1><small id="headerSub">Classroom Emulator</small></div></div>
+ <div class="toptools">
+   <select id="serverSelect" onchange="changeServer()">
+    <option value="R610">PowerEdge R610</option>
+    <option value="R710">PowerEdge R710</option>
+    <option value="T620">PowerEdge T620</option>
+    <option value="R730">PowerEdge R730</option>
+    <option value="R640">PowerEdge R640</option>
+    <option value="R740">PowerEdge R740</option>
+    <option value="R740xd">PowerEdge R740xd</option>
+   </select>
+   <button onclick="showHelp()">Help</button>
+   <button onclick="about()">About</button>
+   <button onclick="fakeExit()">Exit</button>
+ </div>
+</header>
+
+<div class="shell">
+<aside>
+ <div class="serverbox">
+   <strong id="sideModel">PowerEdge R610</strong>
+   <span id="sideGen">11G • iDRAC6 • Lifecycle 1.x</span><br>
+   <span>Service Tag: CLASSLAB</span>
+ </div>
+ <div class="nav">
+  <div class="navitem active" data-page="home"><span class="ico">⌂</span>Home</div>
+  <div class="navitem" data-page="logs"><span class="ico">▤</span>Lifecycle Log</div>
+  <div class="navitem" data-page="firmware"><span class="ico">⇧</span>Firmware Update</div>
+  <div class="navitem" data-page="hardware"><span class="ico">⚙</span>Hardware Configuration</div>
+  <div class="navitem" data-page="os"><span class="ico">▣</span>OS Deployment</div>
+  <div class="navitem" data-page="restore"><span class="ico">↶</span>Platform Restore</div>
+  <div class="navitem" data-page="diagnostics"><span class="ico">✓</span>Hardware Diagnostics</div>
+  <div class="navitem" data-page="settings"><span class="ico">☷</span>Settings</div>
+  <div class="navitem" data-page="system"><span class="ico">🛠</span>System Setup</div>
+  <div class="navitem" data-page="tasks"><span class="ico">★</span>Student Tasks</div>
+ </div>
+</aside>
+
+<main>
+<div class="crumb">Lifecycle Controller &gt; <span id="crumb">Home</span></div>
+<div class="workspace">
+
+<section id="home" class="page active">
+ <h2>Home</h2><div class="subtitle">Select a Lifecycle Controller function for the selected PowerEdge server.</div>
+ <div class="banner"><b>Training mode:</b> This is an original educational emulator. It does not connect to Dell repositories, iDRAC, PERC, BIOS, storage devices, or production servers.</div>
+ <div class="grid4">
+   <div class="metric"><small>Server</small><strong id="mModel">R610</strong><span id="mGen">11G</span></div>
+   <div class="metric"><small>BIOS</small><strong id="mBios">6.6.0*</strong><span>Training reference</span></div>
+   <div class="metric"><small>iDRAC</small><strong id="mIdrac">2.92</strong><span id="mIdracType">iDRAC6</span></div>
+   <div class="metric"><small>Lifecycle Controller</small><strong id="mLc">1.x</strong><span>Model generation reference</span></div>
+ </div>
+ <div class="tilegrid">
+   <div class="tile" onclick="openPage('logs')"><h3>Lifecycle Log</h3><p>Review firmware, hardware, storage, and service events.</p></div>
+   <div class="tile" onclick="openPage('firmware')"><h3>Firmware Update</h3><p>Practice selecting, validating, staging, and applying BIOS/iDRAC/Lifecycle firmware.</p></div>
+   <div class="tile" onclick="openPage('hardware')"><h3>Hardware Configuration</h3><p>Inspect inventory and practice PERC RAID configuration.</p></div>
+   <div class="tile" onclick="openPage('os')"><h3>OS Deployment</h3><p>Practice RAID-first and OS deployment workflows.</p></div>
+   <div class="tile" onclick="openPage('diagnostics')"><h3>Hardware Diagnostics</h3><p>Run simulated CPU, memory, storage, NIC, fan, and PSU checks.</p></div>
+   <div class="tile" onclick="openPage('system')"><h3>System Setup</h3><p>Practice BIOS, boot, NIC, management, and device settings.</p></div>
+ </div>
+</section>
+
+<section id="logs" class="page">
+ <h2>Lifecycle Log</h2><div class="subtitle">Review simulated lifecycle events.</div>
+ <div class="card"><div class="cardhead">Lifecycle Event History</div><div class="cardbody">
+ <table><thead><tr><th>Time</th><th>Severity</th><th>Category</th><th>Message</th></tr></thead><tbody id="logRows"></tbody></table>
+ <div class="actions"><button class="btn" onclick="addNote()">Add Work Note</button><button class="btn" onclick="seedLogs()">Reset Training Log</button></div>
+ </div></div>
+</section>
+
+<section id="firmware" class="page">
+ <h2>Firmware Update</h2><div class="subtitle">Practice model-aware firmware workflows.</div>
+ <div class="warning"><b>Administrative rule:</b> Always verify the exact model, Service Tag, current version, package compatibility, prerequisites, stable power, and maintenance window before applying firmware.</div>
+ <div class="grid3">
+  <div class="metric"><small>Current BIOS</small><strong id="curBios">—</strong><span>Simulated installed</span></div>
+  <div class="metric"><small>Current iDRAC</small><strong id="curIdrac">—</strong><span>Simulated installed</span></div>
+  <div class="metric"><small>Lifecycle Controller</small><strong id="curLc">—</strong><span>Simulated installed</span></div>
+ </div>
+ <div class="card"><div class="cardhead">1. Select Update Source</div><div class="cardbody grid2">
+   <div><label>Update Repository</label><select id="fwSource"><option value="">Select...</option><option value="usb">Local USB / DVD</option><option value="https">HTTPS Repository</option><option value="share">Network Share</option><option value="mock">Dell Repository (Simulation)</option></select></div>
+   <div><label>Repository Path</label><input id="fwPath" type="text" placeholder="Example: /firmware or https://server/repository"></div>
+ </div><div class="actions"><button class="btn" onclick="testSource()">Test Connection</button><button class="btn primary" onclick="scanUpdates()">Check for Updates</button></div></div>
+ <div class="card" id="updateCard" style="display:none"><div class="cardhead">2. Select Components</div><div class="cardbody">
+   <table><thead><tr><th></th><th>Component</th><th>Installed</th><th>Target</th><th>Restart</th></tr></thead><tbody id="updateRows"></tbody></table>
+   <div class="actions"><button class="btn" onclick="validateUpdates()">Validate Selection</button><button class="btn primary" onclick="applyUpdates()">Apply Selected Updates</button></div>
+   <div class="progress"><div id="fwBar"></div></div><div id="fwMsg">Ready.</div>
+ </div></div>
+</section>
+
+<section id="hardware" class="page">
+ <h2>Hardware Configuration</h2><div class="subtitle">Inspect inventory and practice storage configuration.</div>
+ <div class="card"><div class="cardhead">Hardware Inventory</div><div class="cardbody"><table><tbody id="hwTable"></tbody></table></div></div>
+ <div class="card"><div class="cardhead">RAID Configuration</div><div class="cardbody">
+  <div class="drivegrid">
+    <div class="drive selected" data-drive="0">Bay 0<br><b>600 GB SAS</b><br><span class="ok">Ready</span></div>
+    <div class="drive selected" data-drive="1">Bay 1<br><b>600 GB SAS</b><br><span class="ok">Ready</span></div>
+    <div class="drive" data-drive="2">Bay 2<br><b>600 GB SAS</b><br><span class="ok">Ready</span></div>
+    <div class="drive failed" data-drive="3">Bay 3<br><b>600 GB SAS</b><br><span class="bad">Predictive Failure</span></div>
+  </div>
+  <div class="grid3" style="margin-top:12px">
+    <div><label>RAID Level</label><select id="raidLevel"><option>RAID 1</option><option>RAID 0</option><option>RAID 5</option><option>RAID 10</option></select></div>
+    <div><label>Virtual Disk Name</label><input id="vdName" value="OS_VD"></div>
+    <div><label>Read Policy</label><select><option>Adaptive Read Ahead</option><option>No Read Ahead</option></select></div>
+  </div>
+  <div class="actions"><button class="btn" onclick="clearRaid()">Clear Selection</button><button class="btn primary" onclick="createRaid()">Create Virtual Disk</button></div><div id="raidMsg"></div>
+ </div></div>
+</section>
+
+<section id="os" class="page">
+ <h2>OS Deployment</h2><div class="subtitle">Practice a Lifecycle Controller deployment workflow.</div>
+ <div class="wizard"><span id="w1" class="on">1. Path</span><span id="w2">2. Boot / OS</span><span id="w3">3. Media</span><span id="w4">4. Summary</span></div>
+ <div id="os1" class="card"><div class="cardhead">Deployment Path</div><div class="cardbody">
+  <label><input type="radio" name="path" checked> Configure RAID First</label>
+  <label><input type="radio" name="path"> Go Directly to OS Deployment</label>
+  <div class="actions"><button class="btn primary" onclick="osStep(2)">Next</button></div>
+ </div></div>
+ <div id="os2" class="card" style="display:none"><div class="cardhead">Boot Mode and Operating System</div><div class="cardbody grid2">
+  <div><label>Boot Mode</label><select id="bootMode"><option>UEFI</option><option>BIOS / Legacy</option></select></div>
+  <div><label>Secure Boot</label><select id="secureBoot"><option>Enabled</option><option>Disabled</option></select></div>
+  <div><label>Operating System</label><select id="osChoice"><option>Windows Server (Training)</option><option>Red Hat Enterprise Linux (Training)</option><option>VMware ESXi (Training)</option><option>Other OS</option></select></div>
+  <div><label>Install Mode</label><select><option>Manual</option><option>Unattended</option></select></div>
+  <div class="actions"><button class="btn" onclick="osStep(1)">Back</button><button class="btn primary" onclick="osStep(3)">Next</button></div>
+ </div></div>
+ <div id="os3" class="card" style="display:none"><div class="cardhead">Installation Media</div><div class="cardbody">
+  <label>Media Source</label><select id="mediaSource"><option>USB Installation Media</option><option>Optical / Virtual Media</option><option>Network ISO (Simulation)</option></select>
+  <div class="actions"><button class="btn" onclick="osStep(2)">Back</button><button class="btn primary" onclick="osStep(4)">Next</button></div>
+ </div></div>
+ <div id="os4" class="card" style="display:none"><div class="cardhead">Deployment Summary</div><div class="cardbody">
+  <div id="osSummary"></div><div class="actions"><button class="btn" onclick="osStep(3)">Back</button><button class="btn primary" onclick="deployOS()">Launch Simulation</button></div>
+  <div class="progress"><div id="osBar"></div></div><div id="osMsg"></div>
+ </div></div>
+</section>
+
+<section id="restore" class="page">
+ <h2>Platform Restore</h2><div class="subtitle">Practice recovery of saved platform configuration.</div>
+ <div class="card"><div class="cardhead">Recovery Options</div><div class="cardbody">
+  <table><tr><th>Feature</th><th>Status</th><th>Action</th></tr>
+   <tr><td>Server Profile Backup</td><td class="ok">Available</td><td><button class="btn" onclick="toast('Server profile restore simulated successfully.')">Restore</button></td></tr>
+   <tr><td>Easy Restore / Service Configuration</td><td>Training profile</td><td><button class="btn" onclick="toast('Platform restore workflow opened.')">Launch</button></td></tr>
+  </table>
+ </div></div>
+</section>
+
+<section id="diagnostics" class="page">
+ <h2>Hardware Diagnostics</h2><div class="subtitle">Run simulated embedded diagnostics.</div>
+ <div class="card"><div class="cardhead">Diagnostic Tests</div><div class="cardbody">
+   <label><input type="checkbox" class="diag" value="CPU" checked> Processor tests</label>
+   <label><input type="checkbox" class="diag" value="Memory" checked> Memory tests</label>
+   <label><input type="checkbox" class="diag" value="Storage" checked> Storage tests</label>
+   <label><input type="checkbox" class="diag" value="NIC" checked> Network tests</label>
+   <label><input type="checkbox" class="diag" value="Fans" checked> Fan / thermal tests</label>
+   <label><input type="checkbox" class="diag" value="PSU" checked> Power supply tests</label>
+   <div class="actions"><button class="btn primary" onclick="runDiag()">Run Diagnostics</button></div>
+   <div class="progress"><div id="diagBar"></div></div>
+   <table id="diagTable" style="display:none"><thead><tr><th>Component</th><th>Result</th><th>Detail</th></tr></thead><tbody id="diagRows"></tbody></table>
+ </div></div>
+</section>
+
+<section id="settings" class="page">
+ <h2>Settings</h2><div class="subtitle">Lifecycle Controller network and interface settings.</div>
+ <div class="card"><div class="cardhead">Lifecycle Controller Settings</div><div class="cardbody grid2">
+  <div><label>Language</label><select><option>English</option><option>Spanish</option></select></div>
+  <div><label>NIC</label><select><option>Dedicated iDRAC NIC</option><option>Shared LOM</option></select></div>
+  <div><label>IPv4 Mode</label><select><option>DHCP</option><option>Static</option></select></div>
+  <div><label>IPv4 Address</label><input value="172.16.16.120"></div>
+  <div><label>Gateway</label><input value="172.16.16.1"></div>
+  <div><label>DNS</label><input value="172.16.16.16"></div>
+ </div><div class="actions"><button class="btn primary" onclick="toast('Settings saved in the emulator only.')">Apply</button></div></div>
+</section>
+
+<section id="system" class="page">
+ <h2>System Setup</h2><div class="subtitle">Practice BIOS, iDRAC, boot, and storage configuration entry points.</div>
+ <div class="tilegrid">
+  <div class="tile" onclick="setupDialog('System BIOS','Boot mode, virtualization, processor, memory, system profile, and boot sequence settings.')"><h3>System BIOS</h3><p>Boot, CPU, memory, virtualization, and profile settings.</p></div>
+  <div class="tile" onclick="setupDialog('iDRAC Settings','Management IP, DNS, users, NIC selection, and remote access settings.')"><h3>iDRAC Settings</h3><p>Remote management networking and access.</p></div>
+  <div class="tile" onclick="openPage('hardware')"><h3>Device Settings / PERC</h3><p>Storage controller and virtual disk configuration.</p></div>
+  <div class="tile" onclick="setupDialog('Boot Manager','One-time boot device and boot manager workflow.')"><h3>Boot Manager</h3><p>One-time boot and boot sequence practice.</p></div>
+ </div>
+</section>
+
+<section id="tasks" class="page">
+ <h2>Student Tasks</h2><div class="subtitle">Complete these tasks in the emulator and then grade the session.</div>
+ <div class="task" id="t1">1. Select <b>PowerEdge R730</b> and identify BIOS, iDRAC, and Lifecycle Controller versions.</div>
+ <div class="task" id="t2">2. Open Lifecycle Log and identify the storage predictive-failure warning.</div>
+ <div class="task" id="t3">3. In Firmware Update, choose a repository, scan, validate, and complete an iDRAC/Lifecycle update.</div>
+ <div class="task" id="t4">4. In Hardware Configuration, create a simulated <b>RAID 1</b> using two healthy drives.</div>
+ <div class="task" id="t5">5. Run diagnostics and identify the subsystem that reports a warning.</div>
+ <div class="task" id="t6">6. In OS Deployment, choose <b>UEFI</b> and <b>Secure Boot Enabled</b>, then complete the deployment simulation.</div>
+ <div class="card"><div class="cardhead">Knowledge Check</div><div class="cardbody">
+  <label>Why must firmware compatibility be checked first?</label><select id="q1"><option value="">Choose...</option><option value="compat">To prevent installing firmware intended for the wrong server or component</option><option>Because firmware filenames must be short</option></select>
+  <label>What does a predictive-failure storage warning mean?</label><select id="q2"><option value="">Choose...</option><option value="replace">The drive may still be online but should be verified and replaced according to procedure</option><option>The server is definitely healthy</option></select>
+  <label>What should happen after a firmware update?</label><select id="q3"><option value="">Choose...</option><option value="verify">Reconnect, verify versions and health, review logs, and document the change</option><option>Immediately clear all logs</option></select>
+  <div class="actions"><button class="btn primary" onclick="gradeTasks()">Grade Practice</button></div><div id="grade"></div>
+ </div></div>
+</section>
+
+</div>
+<footer>Educational Lifecycle Controller simulator only. Dell, PowerEdge, iDRAC, PERC, and Lifecycle Controller are trademarks of their respective owners.</footer>
+</main>
+</div>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead" id="modalTitle">Message</div><div class="modalbody"><div id="modalText"></div><div class="actions"><button class="btn primary" onclick="closeModal()">OK</button></div></div></div></div>
+
+<script>
+const servers={
+ R610:{gen:"11G",idracType:"iDRAC6",bios:"6.6.0*",idrac:"2.92",lc:"1.x / legacy",cpu:"2 × Xeon 5500/5600 family",mem:"48 GB ECC DDR3",perc:"PERC H700"},
+ R710:{gen:"11G",idracType:"iDRAC6",bios:"6.5.0",idrac:"2.92",lc:"1.x / legacy",cpu:"2 × Xeon 5500/5600 family",mem:"64 GB ECC DDR3",perc:"PERC H700"},
+ T620:{gen:"12G",idracType:"iDRAC7",bios:"2.9.0*",idrac:"2.65.65.65",lc:"2.65.65.65",cpu:"2 × Xeon E5-2600 family",mem:"64 GB ECC DDR3",perc:"PERC H710"},
+ R730:{gen:"13G",idracType:"iDRAC8",bios:"2.19.0",idrac:"2.83.83.83",lc:"2.83.83.83",cpu:"2 × Xeon E5-2600 v3/v4 family",mem:"128 GB ECC DDR4",perc:"PERC H730"},
+ R640:{gen:"14G",idracType:"iDRAC9",bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",cpu:"2 × Xeon Scalable family",mem:"192 GB ECC DDR4",perc:"PERC H740P"},
+ R740:{gen:"14G",idracType:"iDRAC9",bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",cpu:"2 × Xeon Scalable family",mem:"256 GB ECC DDR4",perc:"PERC H740P"},
+ R740xd:{gen:"14G",idracType:"iDRAC9",bios:"2.28.1",idrac:"7.00.00.185",lc:"Integrated",cpu:"2 × Xeon Scalable family",mem:"256 GB ECC DDR4",perc:"PERC H740P"}
+};
+let current="R610";
+const done={versions:false,logs:false,firmware:false,raid:false,diag:false,os:false};
+
+setTimeout(()=>{document.getElementById("boot").style.display="none";document.getElementById("app").style.display="block";loadServer()},1200);
+document.querySelectorAll(".navitem").forEach(n=>n.onclick=()=>openPage(n.dataset.page));
+document.querySelectorAll(".drive").forEach(d=>d.onclick=()=>{if(!d.classList.contains("failed"))d.classList.toggle("selected")});
+
+function openPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".navitem").forEach(n=>n.classList.toggle("active",n.dataset.page===id));
+ document.getElementById("crumb").textContent=document.querySelector('.navitem[data-page="'+id+'"]').innerText.trim();
+ if(id==="logs"){done.logs=true;updateTasks()}
+}
+function changeServer(){current=document.getElementById("serverSelect").value;loadServer()}
+function loadServer(){
+ const s=servers[current];
+ document.getElementById("sideModel").textContent="PowerEdge "+current;
+ document.getElementById("sideGen").textContent=s.gen+" • "+s.idracType+" • Lifecycle "+s.lc;
+ document.getElementById("headerSub").textContent=s.gen+" • "+s.idracType+" • Classroom Emulator";
+ document.getElementById("mModel").textContent=current;document.getElementById("mGen").textContent=s.gen;
+ document.getElementById("mBios").textContent=s.bios;document.getElementById("mIdrac").textContent=s.idrac;
+ document.getElementById("mIdracType").textContent=s.idracType;document.getElementById("mLc").textContent=s.lc;
+ document.getElementById("curBios").textContent=s.bios;document.getElementById("curIdrac").textContent=s.idrac;document.getElementById("curLc").textContent=s.lc;
+ document.getElementById("hwTable").innerHTML=`<tr><th>System</th><td>PowerEdge ${current}</td><th>Generation</th><td>${s.gen}</td></tr><tr><th>CPU</th><td>${s.cpu}</td><th>Memory</th><td>${s.mem}</td></tr><tr><th>RAID Controller</th><td>${s.perc}</td><th>Management</th><td>${s.idracType}</td></tr>`;
+ seedLogs();document.getElementById("updateCard").style.display="none";resetUpdateUI();
+ if(current==="R730"){done.versions=true;updateTasks()}
+}
+function seedLogs(){
+ document.getElementById("logRows").innerHTML=`<tr><td>09:04</td><td class="ok">Informational</td><td>Lifecycle</td><td>Lifecycle Controller entered for PowerEdge ${current}.</td></tr><tr><td>08:58</td><td class="warn">Warning</td><td>Storage</td><td>Physical Disk 0:1:3 predictive failure asserted.</td></tr><tr><td>08:47</td><td class="ok">Informational</td><td>Power</td><td>Power supply redundancy is normal.</td></tr>`;
+}
+function addNote(){let x=prompt("Enter training work note:");if(x){let tr=document.createElement("tr");tr.innerHTML=`<td>${new Date().toLocaleTimeString()}</td><td class="ok">Informational</td><td>Work Note</td><td>${x.replace(/[<>]/g,"")}</td>`;document.getElementById("logRows").prepend(tr)}}
+function testSource(){if(!document.getElementById("fwSource").value)return toast("Select an update source first.");toast("Simulated repository connection successful. No network traffic was generated.")}
+function scanUpdates(){
+ if(!document.getElementById("fwSource").value)return toast("Select an update source before scanning.");
+ const s=servers[current];document.getElementById("updateCard").style.display="block";
+ document.getElementById("updateRows").innerHTML=`<tr><td><input class="up" type="checkbox" checked></td><td>System BIOS</td><td>${s.bios}</td><td>${s.bios} (reinstall training)</td><td>Host reboot</td></tr><tr><td><input class="up" type="checkbox" checked></td><td>${s.idracType}</td><td>${s.idrac}</td><td>${s.idrac}</td><td>iDRAC reset</td></tr><tr><td><input class="up" type="checkbox" checked></td><td>Lifecycle Controller</td><td>${s.lc}</td><td>${s.lc}</td><td>Management reset</td></tr>`;
+ document.getElementById("updateCard").scrollIntoView({behavior:"smooth"});
+}
+function validateUpdates(){document.getElementById("fwMsg").innerHTML='<span class="ok">Training validation passed.</span> In production, confirm exact model, Service Tag, prerequisites, and package release notes.'}
+function resetUpdateUI(){document.getElementById("fwBar").style.width="0%";document.getElementById("fwMsg").textContent="Ready."}
+function applyUpdates(){
+ let chosen=[...document.querySelectorAll(".up")].filter(x=>x.checked).length;if(!chosen)return toast("Select at least one component.");
+ resetUpdateUI();let x=0,b=document.getElementById("fwBar"),m=document.getElementById("fwMsg");
+ let t=setInterval(()=>{x+=10;b.style.width=x+"%";m.textContent=x<30?"Validating package compatibility...":x<55?"Staging selected components...":x<80?"Applying firmware in training mode...":"Resetting management controller and verifying versions...";if(x>=100){clearInterval(t);m.innerHTML='<span class="ok"><b>Simulation complete.</b></span> Versions verified and Lifecycle Log updated.';done.firmware=true;updateTasks()}},140)
+}
+function clearRaid(){document.querySelectorAll(".drive:not(.failed)").forEach(d=>d.classList.remove("selected"));document.getElementById("raidMsg").textContent=""}
+function createRaid(){let n=document.querySelectorAll(".drive.selected").length,l=document.getElementById("raidLevel").value,ok=(l==="RAID 1"&&n===2)||(l==="RAID 0"&&n>=2)||(l==="RAID 5"&&n>=3)||(l==="RAID 10"&&n>=4&&n%2===0);if(ok){document.getElementById("raidMsg").innerHTML='<p class="ok">Virtual disk created in the emulator.</p>';if(l==="RAID 1"){done.raid=true;updateTasks()}}else document.getElementById("raidMsg").innerHTML='<p class="bad">Invalid drive count for '+l+'. Do not select the predictive-failure drive.</p>'}
+function osStep(n){for(let i=1;i<=4;i++){document.getElementById("os"+i).style.display=i===n?"block":"none";document.getElementById("w"+i).classList.toggle("on",i===n)}if(n===4)document.getElementById("osSummary").innerHTML=`<table><tr><th>Boot Mode</th><td>${document.getElementById("bootMode").value}</td></tr><tr><th>Secure Boot</th><td>${document.getElementById("secureBoot").value}</td></tr><tr><th>OS</th><td>${document.getElementById("osChoice").value}</td></tr><tr><th>Media</th><td>${document.getElementById("mediaSource").value}</td></tr></table>`}
+function deployOS(){let x=0,b=document.getElementById("osBar"),m=document.getElementById("osMsg");let t=setInterval(()=>{x+=10;b.style.width=x+"%";m.textContent=x<50?"Preparing drivers and deployment environment...":"Handing off to installation media...";if(x>=100){clearInterval(t);m.innerHTML='<span class="ok">OS deployment handoff simulated successfully.</span>';if(document.getElementById("bootMode").value==="UEFI"&&document.getElementById("secureBoot").value==="Enabled"){done.os=true;updateTasks()}}},120)}
+function runDiag(){let x=0,b=document.getElementById("diagBar"),table=document.getElementById("diagTable"),rows=document.getElementById("diagRows");b.style.width="0%";table.style.display="none";rows.innerHTML="";let t=setInterval(()=>{x+=10;b.style.width=x+"%";if(x>=100){clearInterval(t);table.style.display="table";[...document.querySelectorAll(".diag:checked")].forEach(c=>{let r="PASS",d="No simulated errors.";if(c.value==="Storage"){r="WARNING";d="Bay 3 reports predictive failure."}let tr=document.createElement("tr");tr.innerHTML=`<td>${c.value}</td><td class="${r==="PASS"?"ok":"warn"}">${r}</td><td>${d}</td>`;rows.appendChild(tr)});done.diag=true;updateTasks()}},100)}
+function setupDialog(t,m){modal(t,m+"<br><br><b>Training only.</b>")}
+function updateTasks(){let arr=[done.versions,done.logs,done.firmware,done.raid,done.diag,done.os];arr.forEach((v,i)=>document.getElementById("t"+(i+1)).classList.toggle("done",v))}
+function gradeTasks(){let practical=[done.versions,done.logs,done.firmware,done.raid,done.diag,done.os].filter(Boolean).length,q=0;if(document.getElementById("q1").value==="compat")q++;if(document.getElementById("q2").value==="replace")q++;if(document.getElementById("q3").value==="verify")q++;let total=practical+q,p=Math.round(total/9*100);document.getElementById("grade").innerHTML=`<p style="font-size:28px;color:var(--blue);font-weight:700">${total}/9 — ${p}%</p><p>Practical tasks: ${practical}/6 | Knowledge check: ${q}/3</p>`}
+function modal(t,h){document.getElementById("modalTitle").textContent=t;document.getElementById("modalText").innerHTML=h;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function toast(s){modal("Lifecycle Controller - Training",s)}
+function showHelp(){modal("Help","Choose a server model at the top. Then practice Lifecycle Log, firmware updates, RAID, OS deployment, diagnostics, settings, system setup, and student tasks.")}
+function about(){modal("About","Original classroom Lifecycle Controller-style emulator for PowerEdge administration practice.")}
+function fakeExit(){modal("Exit","In a real Lifecycle Controller session, exiting would return control to the server boot process.")}
+</script>
+</body>
+</html>
