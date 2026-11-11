@@ -2,8 +2,50 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MockTIA | Topic 14 TCP/IP Packet Journey</title>
 <style>
 :root{--bg:#080e1b;--panel:#111d32;--panel2:#16263d;--line:#30435e;--text:#e9f3ff;--muted:#a8bdd3;--cyan:#41d9ff;--pink:#ff62b7;--gold:#ffd37b;--green:#53e4ae;--red:#ff8190}*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at top,#152448,#080e1b 65%);color:var(--text)}main{max-width:1280px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.chip{border:2px solid var(--cyan);color:var(--cyan);padding:9px 15px;border-radius:12px;font-weight:900;box-shadow:0 0 20px #31c9ff55;font-size:24px}.eyebrow{letter-spacing:.18em;font-size:11px;color:var(--cyan)}h1{margin:0;font-size:clamp(25px,4vw,42px);line-height:1.12}h2{font-size:20px;margin:0 0 8px}h3{font-size:16px;margin:12px 0 6px}p{margin:7px 0 12px;color:var(--muted)}input,select,button{font:inherit;border-radius:8px}input,select{background:#091527;color:var(--text);border:1px solid var(--line);padding:10px;max-width:100%}button{border:1px solid #457a91;background:#163a54;color:var(--text);padding:9px 13px;cursor:pointer;font-weight:650}button:hover{border-color:var(--cyan);background:#20506e}button:disabled{opacity:.4;cursor:not-allowed}.primary{background:linear-gradient(110deg,#117a96,#5d2e90);border-color:#65dfff}.print{background:#283a52}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.85fr);gap:16px}.card{border:1px solid var(--line);background:linear-gradient(135deg,#14213a,#101b2e);border-radius:16px;padding:18px;box-shadow:0 12px 25px #0003}.status{font-weight:750;color:var(--cyan)}.info{color:var(--gold)}.good{color:var(--green)}.bad{color:var(--red)}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.score{font-size:20px;color:var(--green);font-weight:800}.topmeta{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin:18px 0}.field{display:flex;flex-direction:column;font-size:12px;gap:4px;color:var(--muted)}.field input{min-width:240px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.tab[aria-selected=true]{border-color:var(--cyan);box-shadow:inset 0 -3px var(--cyan);color:#fff}.workspace{display:none}.workspace.active{display:block}.diagram{display:flex;align-items:stretch;justify-content:center;gap:5px;margin:16px 0;flex-wrap:wrap}.node{min-width:130px;flex:1;text-align:center;background:#0a172b;border:1px solid #42617c;border-radius:12px;padding:13px 7px;position:relative}.node small{display:block;font-size:11px;color:var(--muted)}.node .symbol{font-size:27px}.node.live{border-color:var(--green);box-shadow:0 0 16px #53e4ae45}.arrow{color:var(--cyan);font-size:25px;align-self:center}.timeline{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}.step{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);background:#0a172b;font-size:12px}.step.done{color:#08271d;background:var(--green);border-color:var(--green)}.step.now{color:#05121c;background:var(--cyan);border-color:var(--cyan)}.packet{background:#081426;border:1px solid #355a78;border-radius:12px;padding:14px;margin:14px 0;display:flex;flex-direction:column;gap:5px}.layer{padding:10px 12px;border-radius:8px;border:1px solid #34516e;font:13px ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}.app{background:#3c214b}.trans{background:#203e59}.internet{background:#184347}.access{background:#423822}.terminal{background:#020a12;border:1px solid #285879;border-radius:12px;padding:15px;font:13px/1.65 ui-monospace,Consolas,monospace;color:#a5f9c8;min-height:110px;white-space:pre-wrap;overflow-wrap:anywhere}.termform{display:flex;margin-top:9px;gap:8px}.termform input{min-width:0;flex:1;font-family:ui-monospace,Consolas,monospace}.choice{width:100%;display:block;text-align:left;margin:8px 0;background:#0c2035}.choice.correct{border-color:var(--green);background:#11372d}.choice.incorrect{border-color:var(--red);background:#412332}.choice:disabled{opacity:1}.scenario{border-left:4px solid var(--pink);padding:12px 15px;background:#241c34;border-radius:7px}.log{max-height:220px;overflow:auto;border:1px solid var(--line);background:#0a1528;padding:11px;border-radius:10px;font:12px/1.7 ui-monospace,Consolas,monospace}.mono{font-family:ui-monospace,Consolas,monospace}.pill{display:inline-flex;padding:4px 8px;border-radius:30px;border:1px solid var(--line);font-size:12px;color:var(--muted)}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:8px;text-align:left;border-bottom:1px solid var(--line)}.scroll{overflow:auto}.muted{color:var(--muted)}.report{display:none}.footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 12px}.hint{font-size:13px;color:var(--gold)}.layer-select{display:flex;gap:7px;flex-wrap:wrap}.layer-select button{min-width:140px}.cert{color:var(--cyan);font-size:12px}.tiny{font-size:12px}.meter{height:9px;border-radius:9px;background:#0a1423;overflow:hidden;border:1px solid #344863}.fill{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .25s}#toast{min-height:24px;color:var(--gold)}@media(max-width:850px){.grid{grid-template-columns:1fr}.diagram{gap:5px}.node{min-width:104px}.arrow{display:none}main{padding:12px}}@media print{body{color:#000;background:white}main{max-width:none;padding:0}.noprint{display:none!important}.report{display:block!important;border:1px solid #555;padding:16px;border-radius:8px}.report table td,.report table th{border-color:#aaa}.footer{color:#333}.card{box-shadow:none}}
-</style></head><body><main>
-<header><div class="brand"><div class="chip">M</div><div><div class="eyebrow">INTERACTIVE IT TRAINING &amp; SIMULATIONS</div><h1>TCP/IP: Packet Journey</h1><div class="muted">MockTIA • Topic 14 • Network Systems Administration / Network Support Services</div></div></div><div class="controls noprint"><button class="print" onclick="window.print()">🖨 Print / Save PDF</button><button onclick="resetLab()">↻ Reset Lab</button></div></header>
+</style>
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
+</head><body><main>
+<header><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div class="brand"><div class="chip">M</div><div><div class="eyebrow">INTERACTIVE IT TRAINING &amp; SIMULATIONS</div><h1>TCP/IP: Packet Journey</h1><div class="muted">MockTIA • Topic 14 • Network Systems Administration / Network Support Services</div></div></div><div class="controls noprint"><button class="print" onclick="window.print()">🖨 Print / Save PDF</button><button onclick="resetLab()">↻ Reset Lab</button></div></header>
+<section id="mocktiaUnifiedAssessment" data-lab="MockTIA | Topic 14 TCP/IP Packet Journey" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+
 <div class="topmeta noprint"><label class="field">Student full name<input id="student" placeholder="Enter your full name" oninput="save()"></label><label class="field">Lab date<input id="labdate" type="date" onchange="save()"></label><div><span class="score" id="score">0 / 100</span><div class="tiny muted" id="completion">0 of 20 challenges completed</div><div class="meter"><div id="fill" class="fill"></div></div></div></div>
 <div class="tabs noprint" role="tablist"><button class="tab" aria-selected="true" data-tab="mission">1 • Packet Journey</button><button class="tab" aria-selected="false" data-tab="terminal">2 • Command Center</button><button class="tab" aria-selected="false" data-tab="faults">3 • Break / Fix Network</button><button class="tab" aria-selected="false" data-tab="quiz">4 • Certification Check</button><button class="tab" aria-selected="false" data-tab="reportview">5 • Report</button></div>
 <section id="mission" class="workspace active"><div class="grid"><div class="card"><div class="eyebrow">MISSION 01 • LIVE PACKET FLOW</div><h2>Reach a secure web server across pfSense</h2><p>A workstation at <strong>10.10.20.55/24</strong> browses <strong>https://training.example</strong> (a simulated domain). Follow every operation from DNS through the HTTPS response.</p><div class="diagram"><div class="node" id="node0"><div class="symbol">💻</div><b>Student PC</b><small>10.10.20.55</small><small>MAC 02:10:20:00:00:55</small></div><span class="arrow">→</span><div class="node" id="node1"><div class="symbol">🔀</div><b>Switch</b><small>Layer 2 forwarding</small></div><span class="arrow">→</span><div class="node" id="node2"><div class="symbol">🛡️</div><b>pfSense</b><small>LAN 10.10.20.1</small><small>WAN 198.51.100.10*</small></div><span class="arrow">→</span><div class="node" id="node3"><div class="symbol">🌐</div><b>Web Server</b><small>203.0.113.80*</small><small>TCP 443</small></div></div><div class="tiny muted">* Documentation-only IP addresses; the browser simulation does not transmit network packets.</div><div class="timeline" id="timeline"></div><div class="packet"><div id="packetTitle" class="eyebrow">PACKET ENCAPSULATION / FRAME VIEW</div><div id="packetLayers"></div></div><div class="controls"><button id="stepback">← Previous</button><button id="stepnext" class="primary">Next packet step →</button><button id="autoShow">Show entire journey</button></div></div><div class="card"><div class="eyebrow">PACKET INSPECTOR</div><h2 id="stepTitle">1. Browser requests a URL</h2><p id="stepDescription"></p><div id="stepMeta" class="log"></div><h3>Check your understanding</h3><p id="missionQuestion"></p><div id="missionChoices"></div><div id="missionFeedback" class="hint" role="status"></div><div class="hint">Earn 5 points for each correct packet checkpoint (5 × 5 = 25).</div></div></div></section>
@@ -58,4 +100,83 @@ $('previousTicket').onclick=()=>{ticketIndex--;renderTicket()};$('nextTicket').o
 function renderQuiz(){$('quizBody').innerHTML=quiz.map((q,i)=>`<div class="card" style="margin:12px 0;background:#0b182a"><span class="pill">Question ${i+1}</span><h3>${escapeHTML(q.q)}</h3><div id="quizchoice${i}"></div><div class="hint" id="quizmsg${i}">${state.quiz.includes(i)?'✓ Correct (+5 points)':''}</div></div>`).join('');quiz.forEach((q,i)=>q.a.forEach((a,j)=>{const b=document.createElement('button');b.className='choice'+(state.quiz.includes(i)&&j===q.c?' correct':'');b.textContent=String.fromCharCode(65+j)+'. '+a;b.disabled=state.quiz.includes(i);b.onclick=()=>{if(j===q.c){mark('quiz',i);renderQuiz()}else{b.classList.add('incorrect');$('quizmsg'+i).textContent='Incorrect. Review the TCP/IP concepts and choose again.'}};$('quizchoice'+i).appendChild(b)}))}
 function resetLab(){if(!confirm('Reset all student progress and scores on this device?'))return;state=defaults();$('student').value='';$('labdate').value=state.date;stepIndex=0;ticketIndex=0;save();renderStep();renderCommandHints();renderTicket();renderQuiz();$('terminalOutput').textContent='Microsoft Windows [Version 10.0.26100]\nC:\\Users\\Student> Type help to see available commands.';showTab('mission')}
 $('student').value=state.student;$('labdate').value=state.date;renderStep();renderCommandHints();renderTicket();renderQuiz();updateScores();showTab('mission');
-</script></body></html>
+</script><script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
+</script>
+</body></html>

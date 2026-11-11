@@ -13,10 +13,52 @@
 @media(max-width:420px){.layer-list{grid-template-columns:1fr}.controls{flex-wrap:wrap}.controls .next{flex:1 1 100%}.network-path{gap:5px;padding:9px}.machine svg{width:34px;height:34px}.env-meta{display:block}.studentfield{align-items:stretch;flex-direction:column;gap:4px}}
 @media print{*{box-shadow:none!important;text-shadow:none!important}html,body{background:white!important;color:#132235!important}.topbar,.hero,.studentbar,.learning-status,.workspace,.section,.complete,.footer{display:none!important}.shell{width:100%;margin:0}.print-sheet{display:block!important;color:#12223b;font-size:10.2pt;line-height:1.44}.print-head{border-bottom:3px solid #214e78;padding-bottom:12px;margin-bottom:16px}.print-head h1{font-size:24pt;margin:5px 0;letter-spacing:-.02em;color:#173858}.print-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px;border:1px solid #b4c4d4;border-radius:7px}.print-meta strong{display:block}.print-table{border-collapse:collapse;width:100%;margin:10px 0 18px}.print-table td,.print-table th{border:1px solid #b3c4d2;padding:6px 7px;text-align:left}.print-table th{background:#e5eef5;color:#19385a}.print-sheet h2{font-size:14pt;margin:17px 0 6px;color:#193b63}.print-sign{margin-top:30px;display:flex;justify-content:space-between}.print-sign span{border-top:1px solid #55708c;width:44%;padding-top:6px}.print-note{color:#52657b;font-size:9pt}.print-break{break-before:page}.print-sheet .teacher-notes{height:40px;border:1px solid #c2cfda;margin-top:9px}}
 </style>
+
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
 </head>
 <body>
 <div class="shell">
-<header class="topbar"><div class="brand"><div class="chip-logo" aria-hidden="true">M</div><div><div class="brand-name">MockTIA</div><div class="brand-sub">Interactive IT training & simulations</div></div></div><div class="top-pill"><span class="dot"></span> OFFLINE • CLICK-THROUGH LAB</div></header>
+<header class="topbar"><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div class="brand"><div class="chip-logo" aria-hidden="true">M</div><div><div class="brand-name">MockTIA</div><div class="brand-sub">Interactive IT training & simulations</div></div></div><div class="top-pill"><span class="dot"></span> OFFLINE • CLICK-THROUGH LAB</div></header>
+<section id="mocktiaUnifiedAssessment" data-lab="MockTIA | OSI Model — Envelope &amp; Encryption Explorer" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+
 <section class="hero"><div><div class="eyebrow">Network Support Services · Guided lesson</div><h1>OSI Model <em>Envelope & Encryption Explorer</em></h1><p class="intro">Follow one secure web request from a student PC to a server. Click any of the <b>7 OSI layers</b> to see how the message gets wrapped, addressed, protected, sent, and finally opened.</p></div><div class="hero-mark" aria-hidden="true">✉️🔒</div></section>
 <section class="bar studentbar" aria-label="Student and lesson details"><div class="studentfield"><label for="studentName">STUDENT FULL NAME</label><input id="studentName" type="text" autocomplete="name" placeholder="Type your first and last name" maxlength="90"></div><div class="datebox"><span class="mini-label">Today's date</span><strong id="dateText"></strong></div><div class="stat"><span class="mini-label">Knowledge check</span><strong id="topScore">0 / 7</strong></div><button id="printBtn" class="btn primary print-main" type="button">⎙ Print / Save PDF Report</button></section>
 <section class="bar learning-status"><div class="mode-group" role="group" aria-label="Choose message direction"><button class="mode" type="button" id="sendMode" aria-pressed="true">↘ Send · 7 → 1</button><button class="mode" type="button" id="receiveMode" aria-pressed="false">↗ Receive · 1 → 7</button></div><div class="track" role="progressbar" aria-label="Lesson completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="fill" id="progressFill"></div></div><div class="progress-label" id="progressText">0% complete</div></section>
@@ -82,6 +124,85 @@ function makePrint(){const date=friendlyDate,name=$('studentName').value.trim()|
 function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 $('sendMode').addEventListener('click',()=>setPosition('send',direction==='send'?layer:7));$('receiveMode').addEventListener('click',()=>setPosition('receive',direction==='receive'?layer:1));$('nextBtn').addEventListener('click',next);$('prevBtn').addEventListener('click',prev);$('restartBtn').addEventListener('click',()=>{if(!confirm('Reset all layer visits and quiz answers for a new attempt? Student name will be kept.'))return;visited=new Set();answers=Array(QUESTIONS.length).fill(null);setPosition('send',7);renderQuiz();});$('printBtn').addEventListener('click',()=>{makePrint();window.print()});document.querySelectorAll('.inspector-btn').forEach(b=>b.addEventListener('click',()=>setDevice(b.dataset.device)));
 visit('send',7);render();renderQuiz();setDevice('switch');
+</script>
+<script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
 </script>
 </body>
 </html>

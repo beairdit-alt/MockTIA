@@ -1,6 +1,48 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MockTIA 17.1.10 | Manage Linux File Ownership</title><style>
 :root{font:14px/1.48 'Segoe UI',Arial,sans-serif;color:#e8f4ff;background:#06111e;--line:#326080;--a:#42dffe;--b:#55e3b8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -30%,#214e69,#06111e 65%)}button,input,select{font:inherit}button{cursor:pointer;border:1px solid #477c9d;background:#164364;color:#f1fbff;border-radius:7px;padding:9px 11px}button:hover{background:#246184}button:focus-visible,input:focus-visible{outline:2px solid #ffd45a}header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid #286187;background:#071e34;gap:12px;flex-wrap:wrap}.brand{font-size:27px;font-weight:900;color:var(--a)}.brand em{font-style:normal;color:white}.small{font-size:12px;color:#adcadc}.layout{max-width:1800px;margin:15px auto;padding:0 13px;display:grid;grid-template-columns:285px minmax(400px,1fr) 295px;gap:13px}.panel{border:1px solid var(--line);border-radius:11px;background:#0e263b;padding:15px;margin-bottom:12px;min-width:0}h2{font-size:17px;margin:0 0 10px}h3{font-size:14px;color:#76e2fa;margin:10px 0 7px}.step{padding:9px 10px;border:1px solid #35617c;border-radius:8px;margin:7px 0;background:#0b1f31}.step.done{border-color:#208a69;background:#0b3230}.step small{display:block;color:#afccde}.notice{padding:11px;background:#183e53;border-left:4px solid var(--a);border-radius:5px;margin:9px 0}.warn{border-left-color:#ffc766}.workarea{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.85fr);gap:12px}.window{border:1px solid #46728e;border-radius:9px;overflow:hidden;background:#071725}.titlebar{background:#254763;padding:9px 12px;font-weight:700;display:flex;justify-content:space-between;gap:8px}.terminal{padding:13px;background:#020d16;color:#9df6c5;font:13px/1.55 Consolas,'Liberation Mono',monospace;min-height:290px;max-height:410px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.cli{display:flex;gap:6px;padding:8px;background:#0b2435;align-items:center}.cli label{color:#a2f5d2;font:12px Consolas,monospace;white-space:nowrap}.cli input{min-width:0;flex:1;background:#031522;color:white;border:1px solid #386986;padding:9px;border-radius:4px;font:13px Consolas,monospace}.tree{padding:12px;max-height:470px;overflow:auto;font:13px Consolas,monospace}.file-row{display:grid;grid-template-columns:minmax(0,1.3fr) .7fr .7fr .7fr;gap:6px;border-bottom:1px solid #22455d;padding:9px 2px}.file-row.head{font-weight:800;color:#77d9f2}.file-row button{background:transparent;border:0;text-align:left;padding:0;color:#e7f3ff;overflow-wrap:anywhere}.file-row button:hover{text-decoration:underline}.controls{display:flex;flex-wrap:wrap;gap:6px}.pill{display:inline-block;border:1px solid #4d7596;border-radius:20px;padding:4px 10px;color:#b6d9ec}.report-input{width:100%;padding:10px;background:#051b2a;border:1px solid #47728e;border-radius:6px;color:white}.quiz button{display:block;width:100%;text-align:left;margin:6px 0}.quiz button.sel{border-color:var(--a);background:#135879}.good{color:#58e0af}.bad{color:#ff9eaa}#printSheet{display:none}footer{text-align:center;padding:20px;color:#bad5e2}code{color:#9df1d1}@media(max-width:1200px){.layout{grid-template-columns:240px minmax(0,1fr)}.aside{grid-column:1/-1}.workarea{grid-template-columns:1fr 1fr}}@media(max-width:760px){.layout{display:block}.workarea{display:block}.window{margin-bottom:12px}.file-row{font-size:11px}}@media print{body{background:white!important;color:black!important}body>*:not(#printSheet){display:none!important}#printSheet{display:block!important;padding:10mm;font:12pt/1.45 Arial,sans-serif;color:#111}#printSheet h1,#printSheet h2{color:#173c5a}#printSheet table{width:100%;border-collapse:collapse}#printSheet td,#printSheet th{padding:7px;border:1px solid #aaa;text-align:left}}
-</style></head><body><header><div><div class="brand">MockTIA <em>Labs</em></div><div class="small">17.1.10 · MANAGE LINUX FILE OWNERSHIP · INTERACTIVE PRACTICAL</div></div><div class="controls"><button onclick="toggleMode()" id="modeBtn">Training Mode</button><button onclick="resetLab()">Reset Lab</button><button onclick="checkAnswers()">Check Answers</button><button onclick="printAssessment()">Print Assessment</button></div></header><div class="layout"><section><div class="panel"><h2>Service Ticket</h2><p>You are a junior Linux administrator. The <b>/srv/projects</b> folder has incorrect ownership and group access. Restore access using Linux commands, then verify your work.</p><div class="notice"><b>Goal:</b> assign correct file owners, shared group, and safe permissions without giving everyone write access.</div></div><div class="panel"><h2>Lab objectives</h2><div id="tasks"></div></div></section><main><div class="panel"><h2>What to Do Next</h2><div id="guide"></div><div class="controls"><button onclick="copyHint()">Copy suggested command</button><button onclick="showHelp()">CLI reference</button></div></div><div class="workarea"><div class="window"><div class="titlebar"><span>Ubuntu Server · SSH Terminal</span><span class="small">Enter · ↑ history · Tab paths</span></div><div id="terminal" class="terminal" role="log" aria-label="Terminal output"></div><div class="cli"><label id="prompt" for="command">tech@mocktia:~$</label><input id="command" aria-label="Linux command" autocomplete="off" spellcheck="false" placeholder="Enter Linux command"><button onclick="runInput()">Enter ↵</button></div></div><div class="window"><div class="titlebar"><span>Linux File Explorer · /srv/projects</span><span class="small">Live file state</span></div><div class="tree"><p class="small">Select a file to inspect its current owner, group and mode. This view updates when you execute commands.</p><div class="file-row head"><span>File / Folder</span><span>Owner</span><span>Group</span><span>Mode</span></div><div id="fileRows"></div><div id="details" class="notice" style="margin-top:14px">Select an item to inspect ownership and permissions.</div></div></div></div><div class="panel"><h2>Command reference</h2><p><code>ls -l</code> shows owner, group and permissions; <code>chown user path</code> changes owner; <code>chgrp group path</code> changes group; <code>chmod 770 path</code> changes permissions.</p><p><b>Safety:</b> use <code>sudo</code> for privileged ownership changes. Avoid <code>chmod 777</code>; unrestricted access is not appropriate for corporate project data.</p></div></main><aside class="aside"><div class="panel"><h2>Student & Completion</h2><label for="student">Student full name</label><input id="student" class="report-input" placeholder="First and last name"><p class="small" id="today"></p><div class="notice">Finish the tasks, answer the questions, then select <b>Print Assessment</b> and save as PDF for Canvas.</div><div id="score" class="pill">Score: 0 / 100</div></div><div class="panel"><h2>Permission quick guide</h2><p><b>r = 4</b> read; <b>w = 2</b> write; <b>x = 1</b> execute/traverse.</p><p><code>750</code> means owner rwx, group r-x, others no access.</p><p><code>770</code> means owner and group rwx, others no access.</p><p><code>640</code> means owner rw-, group r--, others no access.</p></div><div class="panel quiz"><h2>Knowledge Check</h2><div id="questions"></div></div><div class="panel"><h2>Technician activity log</h2><div id="events" class="small"></div></div></aside></div><footer>MockTIA Labs · Created by Mr. Beaird · Offline educational simulation — no real Linux server is modified.</footer><article id="printSheet"></article><script>
+</style>
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
+</head><body><header><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div><div class="brand">MockTIA <em>Labs</em></div><div class="small">17.1.10 · MANAGE LINUX FILE OWNERSHIP · INTERACTIVE PRACTICAL</div></div><div class="controls"><button onclick="toggleMode()" id="modeBtn">Training Mode</button><button onclick="resetLab()">Reset Lab</button><button onclick="checkAnswers()">Check Answers</button><button onclick="printAssessment()">Print Assessment</button></div></header>
+<section id="mocktiaUnifiedAssessment" data-lab="MockTIA 17.1.10 | Manage Linux File Ownership" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+<div class="layout"><section><div class="panel"><h2>Service Ticket</h2><p>You are a junior Linux administrator. The <b>/srv/projects</b> folder has incorrect ownership and group access. Restore access using Linux commands, then verify your work.</p><div class="notice"><b>Goal:</b> assign correct file owners, shared group, and safe permissions without giving everyone write access.</div></div><div class="panel"><h2>Lab objectives</h2><div id="tasks"></div></div></section><main><div class="panel"><h2>What to Do Next</h2><div id="guide"></div><div class="controls"><button onclick="copyHint()">Copy suggested command</button><button onclick="showHelp()">CLI reference</button></div></div><div class="workarea"><div class="window"><div class="titlebar"><span>Ubuntu Server · SSH Terminal</span><span class="small">Enter · ↑ history · Tab paths</span></div><div id="terminal" class="terminal" role="log" aria-label="Terminal output"></div><div class="cli"><label id="prompt" for="command">tech@mocktia:~$</label><input id="command" aria-label="Linux command" autocomplete="off" spellcheck="false" placeholder="Enter Linux command"><button onclick="runInput()">Enter ↵</button></div></div><div class="window"><div class="titlebar"><span>Linux File Explorer · /srv/projects</span><span class="small">Live file state</span></div><div class="tree"><p class="small">Select a file to inspect its current owner, group and mode. This view updates when you execute commands.</p><div class="file-row head"><span>File / Folder</span><span>Owner</span><span>Group</span><span>Mode</span></div><div id="fileRows"></div><div id="details" class="notice" style="margin-top:14px">Select an item to inspect ownership and permissions.</div></div></div></div><div class="panel"><h2>Command reference</h2><p><code>ls -l</code> shows owner, group and permissions; <code>chown user path</code> changes owner; <code>chgrp group path</code> changes group; <code>chmod 770 path</code> changes permissions.</p><p><b>Safety:</b> use <code>sudo</code> for privileged ownership changes. Avoid <code>chmod 777</code>; unrestricted access is not appropriate for corporate project data.</p></div></main><aside class="aside"><div class="panel"><h2>Student & Completion</h2><label for="student">Student full name</label><input id="student" class="report-input" placeholder="First and last name"><p class="small" id="today"></p><div class="notice">Finish the tasks, answer the questions, then select <b>Print Assessment</b> and save as PDF for Canvas.</div><div id="score" class="pill">Score: 0 / 100</div></div><div class="panel"><h2>Permission quick guide</h2><p><b>r = 4</b> read; <b>w = 2</b> write; <b>x = 1</b> execute/traverse.</p><p><code>750</code> means owner rwx, group r-x, others no access.</p><p><code>770</code> means owner and group rwx, others no access.</p><p><code>640</code> means owner rw-, group r--, others no access.</p></div><div class="panel quiz"><h2>Knowledge Check</h2><div id="questions"></div></div><div class="panel"><h2>Technician activity log</h2><div id="events" class="small"></div></div></aside></div><footer>MockTIA Labs · Created by Mr. Beaird · Offline educational simulation — no real Linux server is modified.</footer><article id="printSheet"></article><script>
 const initial={
 '/srv/projects':{owner:'root',group:'root',mode:'755',dir:true},
 '/srv/projects/plan.txt':{owner:'root',group:'root',mode:'644',dir:false},
@@ -68,4 +110,83 @@ function resetLab(){if(confirm('Reset all lab work and answers?')){init()}}
 function printAssessment(){let name=$('student').value.trim();if(!name){alert('Enter your first and last name before printing.');$('student').focus();return}let rows=objectives.map((x,i)=>'<tr><td>'+esc(x[0])+'</td><td>'+(taskDone(i)?'Complete':'Incomplete')+'</td></tr>').join('');let quiz=q.map((x,i)=>'<tr><td>'+esc(x[0])+'</td><td>'+esc(S.answers[i]===undefined?'Not answered':x[1][S.answers[i]])+'</td><td>'+(S.answers[i]===x[2]?'Correct':'Incorrect / incomplete')+'</td></tr>').join('');$('printSheet').innerHTML='<h1>MockTIA Labs — Completion Assessment</h1><h2>17.1.10 Manage Linux File Ownership</h2><p><b>Student:</b> '+esc(name)+'<br><b>Date:</b> '+new Date().toLocaleDateString()+'<br><b>Score:</b> '+score()+' / 100</p><h2>Practical checklist (60 points)</h2><table><tr><th>Objective</th><th>Status</th></tr>'+rows+'</table><h2>Knowledge check (40 points)</h2><table><tr><th>Question</th><th>Answer</th><th>Result</th></tr>'+quiz+'</table><h2>Selected terminal commands</h2><p>'+esc(S.commands.slice(-18).join(' | '))+'</p><p><b>Instructor note:</b> This report reflects simulated lab state, not a live Linux system.</p><p style="margin-top:30px">Created by Mr. Beaird</p>';window.print()}
 $('command').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();runInput()}else if(e.key==='ArrowUp'){e.preventDefault();if(histPos>0)histPos--;$('command').value=history[histPos]||''}else if(e.key==='ArrowDown'){e.preventDefault();if(histPos<history.length)histPos++;$('command').value=history[histPos]||''}else if(e.key==='Tab'){e.preventDefault();let v=$('command').value;let options=Object.keys(S.files).filter(x=>x.startsWith(v.split(' ').at(-1)));if(options.length===1)$('command').value=v.replace(/\S+$/,options[0])}});
 $('today').textContent='Date: '+new Date().toLocaleDateString();init();
-</script></body></html>
+</script><script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
+</script>
+</body></html>

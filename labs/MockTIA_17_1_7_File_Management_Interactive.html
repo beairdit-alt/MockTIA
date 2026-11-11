@@ -1,7 +1,49 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MockTIA 17.1.7 — Linux File Management</title><style>
 :root{font-family:Segoe UI,Arial,sans-serif;color:#e8f5ff;background:#061321;--edge:#315c82;--cyan:#17dcfa;--gold:#ffcf54}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#103c58,#04101c 70%);font-size:14px}button,input,select{font:inherit}button{cursor:pointer;background:#154262;border:1px solid #4e91b8;color:#effaff;padding:9px 13px;border-radius:7px}button:hover{background:#17638c}button:focus-visible,input:focus-visible{outline:3px solid #ffcd4a;outline-offset:2px}button[disabled]{opacity:.45;cursor:default}header{padding:14px 22px;background:#071b31;border-bottom:1px solid #207fa9;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.brand{font-size:25px;font-weight:900;letter-spacing:1.5px;color:#24e5fb}.brand span{color:white}.subtitle{color:#a9d2e5;font-size:12px}.actions{display:flex;flex-wrap:wrap;gap:7px}.layout{max-width:1800px;margin:12px auto;padding:0 13px;display:grid;grid-template-columns:minmax(240px,292px) minmax(500px,1fr) minmax(270px,345px);gap:12px}.panel{background:linear-gradient(160deg,#102c43,#07182a);border:1px solid var(--edge);border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 8px 20px #0004}.panel h2{font-size:16px;margin:0 0 10px}.panel h3{font-size:14px;color:#7ee7fd;margin:10px 0}.muted{color:#a7c5d8}.mission{padding:10px;border:1px solid #284e6a;border-radius:9px;margin:7px 0;background:#091e30}.mission strong{display:block}.mission.done{border-color:#22c89a;background:#0d302f}.mission .desc{font-size:12px;color:#a4c2d5;margin:4px 0}.hint{border:1px solid #d4aa36;background:#252a25}.hint h2{color:#ffe47d}.hint code{display:block;margin-top:7px;padding:8px;background:#00141d;color:#99f3ca;white-space:pre-wrap;overflow-wrap:anywhere}.field{display:grid;gap:6px;margin-bottom:10px}.field input{padding:10px;border-radius:6px;border:1px solid #78a1b8;background:#fff;color:#123}.stat{padding:8px;background:#061b2c;border-left:3px solid #28dff0;margin:7px 0}.desktop{background:#182238;border:1px solid #557799;border-radius:9px;overflow:hidden}.desktopbar{background:#283b53;padding:8px 12px;display:flex;align-items:center;justify-content:space-between}.desktopbar span{color:#d9e6f7}.appwindow{margin:12px;background:#111e2d;border:1px solid #5a7793;border-radius:8px;overflow:hidden}.windowbar{background:#334c65;padding:9px;display:flex;align-items:center;justify-content:space-between}.windowtitle{font-weight:700}.filetoolbar{padding:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#142c40}.filetoolbar code{color:#c1fbdc}.explorer{display:grid;grid-template-columns:160px 1fr;min-height:185px;background:#dfe8f3;color:#152b3d}.sidebar{background:#d1dfeb;padding:9px;border-right:1px solid #a2bfd2}.sidebar button,.files button{background:transparent;color:#173851;border:0;text-align:left;padding:7px 8px;width:100%;border-radius:4px}.sidebar button:hover,.files button:hover{background:#b7d5e6}.files{padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));align-content:start;gap:8px}.files button{border:1px solid transparent}.files button:hover{border-color:#8ab5c9}.terminal{background:#050e17;border:1px solid #517c9e;border-radius:9px;margin-top:13px;overflow:hidden}.termhead{background:#293949;padding:9px 12px;display:flex;gap:10px;align-items:center}.dot{width:10px;height:10px;border-radius:100%;background:#f67c78}.termout{height:270px;overflow-y:auto;padding:13px;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.55 Consolas,'Courier New',monospace;color:#aaf3c7}.terminput{display:flex;align-items:center;padding:9px;gap:7px;border-top:1px solid #263c4f;background:#061521}.prompt{font:13px Consolas,monospace;color:#3debd7;white-space:nowrap}.terminput input{background:#061521;flex:1;border:0;color:white;min-width:60px;padding:7px;font:14px Consolas,monospace;outline:none}.qa{padding:10px;border:1px solid #31566c;border-radius:8px;margin:10px 0}.qa legend{font-weight:700}.qa label{display:block;margin:6px 0}.qa input{accent-color:#0bd1e6}.good{color:#42f1bd}.warn{color:#ffd277}.footer{text-align:center;color:#97cada;padding:20px}.hidden{display:none!important}#printSheet{display:none}@media(max-width:1250px){.layout{grid-template-columns:230px 1fr}.right{grid-column:1/-1}}@media(max-width:700px){.layout{display:block}.explorer{grid-template-columns:105px 1fr}.termout{height:220px}}@media print{body{background:white!important;color:black!important}body>*:not(#printSheet){display:none!important}#printSheet{display:block!important;padding:25px 35px;font:12pt/1.4 Arial,sans-serif}#printSheet h1{color:#123a6b}#printSheet table{width:100%;border-collapse:collapse}#printSheet th,#printSheet td{border:1px solid #777;padding:7px;text-align:left}#printSheet .sign{margin:32px 0;border-top:1px solid #777;padding-top:10px}}
-</style></head><body>
-<header><div><div class="brand">◈ Mock<span>TIA</span> <small style="font-size:12px">LABS</small></div><div style="font-size:21px;font-weight:800">17.1.7 // Linux File Management</div><div class="subtitle">Interactive practical • Ubuntu-style file manager and Bash terminal • Guided training</div></div><div class="actions"><button id="modeBtn">Training Mode</button><button id="resetBtn">Reset Lab</button><button id="checkBtn">Check Answers</button><button id="printBtn">Print Assessment</button></div></header>
+</style>
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
+</head><body>
+<header><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div><div class="brand">◈ Mock<span>TIA</span> <small style="font-size:12px">LABS</small></div><div style="font-size:21px;font-weight:800">17.1.7 // Linux File Management</div><div class="subtitle">Interactive practical • Ubuntu-style file manager and Bash terminal • Guided training</div></div><div class="actions"><button id="modeBtn">Training Mode</button><button id="resetBtn">Reset Lab</button><button id="checkBtn">Check Answers</button><button id="printBtn">Print Assessment</button></div></header>
+<section id="mocktiaUnifiedAssessment" data-lab="MockTIA 17.1.7 — Linux File Management" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+
 <div class="layout"><aside><section class="panel"><h2>Service Ticket</h2><p>You are a junior Linux administrator preparing a project workspace. Create and organize folders, copy and move documents, inspect file contents, and clean up temporary files.</p><p class="muted">Work inside <code>/home/student</code>. You may use the Bash terminal or the simulated file manager; some command-line tasks must be completed in the terminal.</p></section><section class="panel"><h2>Required Lab Tasks</h2><div id="missions"></div></section><section class="panel hint" id="guide"><h2>💡 What To Do Next</h2><div id="nextText"></div><code id="nextCommand"></code><button id="copyHint" style="margin-top:9px">Copy suggested command</button><div class="muted" style="font-size:12px;margin-top:9px">Type the command yourself. Incorrect commands will not reset the lab.</div></section></aside>
 <main><section class="panel"><h2>Linux Desktop — File Manager</h2><div class="desktop"><div class="desktopbar"><span>● Activities &nbsp; ▣ Files &nbsp; &nbsp; Ubuntu Training VM</span><span>🔉 &nbsp; ⏻</span></div><div class="appwindow"><div class="windowbar"><span class="windowtitle">📁 Files — <span id="pathTitle">/home/student</span></span><span>▢ ×</span></div><div class="filetoolbar"><button id="upBtn">↑ Up</button><button id="homeBtn">⌂ Home</button><button id="newFolder">+ New Folder</button><button id="refreshBtn">↻ Refresh</button><code id="pathCrumb">/home/student</code></div><div class="explorer"><div class="sidebar"><button data-goto="/home/student">⌂ Home</button><button data-goto="/home/student/Documents">📁 Documents</button><button data-goto="/home/student/Downloads">📁 Downloads</button><button data-goto="/home/student/Desktop">🖥 Desktop</button><button data-goto="/home/student/projects">📁 projects</button></div><div class="files" id="fileList"></div></div></div></div><div class="terminal"><div class="termhead"><span class="dot"></span><span class="dot" style="background:#ffce6a"></span><span class="dot" style="background:#54ce92"></span><span style="margin-left:10px">student@mocktia:~ — Terminal</span></div><div class="termout" id="termOut" aria-live="polite"></div><div class="terminput"><span class="prompt" id="prompt">student@mocktia:~$</span><input id="cli" autocomplete="off" spellcheck="false" aria-label="Linux terminal command" placeholder="Type a Linux command and press Enter"><button id="runBtn">Enter ↵</button></div></div><p class="muted" style="font-size:12px">Terminal: Enter executes, ↑ and ↓ recall commands, Tab autocompletes unique file names. Use <code>help</code> for the simulator's supported commands.</p></section><section class="panel"><h2>Command Reference</h2><div class="muted">Use <code>pwd</code> to display your working directory, <code>ls -la</code> to list files (including hidden entries), <code>mkdir</code> to create directories, <code>touch</code> to create files, <code>cp</code> to copy, <code>mv</code> to move/rename, <code>cat</code> to read text, and <code>rm</code> to delete files. <b>Deletion is simulated and cannot affect your computer.</b></div></section></main>
 <aside class="right"><section class="panel"><h2>Student Information</h2><label class="field"><b>Student full name</b><input id="studentName" placeholder="First and last name" autocomplete="name"></label><div class="stat">Date: <span id="date"></span></div><div class="stat">Completed practical tasks: <b id="progress">0 / 8</b></div><div class="stat">Assessment score: <b id="score">0 / 100</b></div></section><section class="panel"><h2>Understanding the Terminal</h2><div id="explain">A Linux terminal allows administrators to work with files on local or remote computers, even without a graphical desktop. Commands apply to your current working directory unless you specify another path.</div></section><section class="panel"><h2>Knowledge Assessment</h2><div id="questions"></div><button id="gradeBtn">Grade Questions</button><p id="gradeFeedback" class="muted">Answer all four questions after completing the practical tasks.</p></section><section class="panel"><h2>Technician Activity Log</h2><div id="log" class="muted" style="max-height:210px;overflow:auto;white-space:pre-wrap">No activity recorded yet.</div></section></aside></div>
@@ -48,4 +90,83 @@ $('modeBtn').onclick=()=>{mode=mode==='training'?'assessment':'training';$('mode
 // Read mission 6 only when a meaningful cat command actually succeeds.
 const originalExecute=execute;execute=function(raw){const t=tokenize(raw.trim());if(t[0]==='cat'&&t.slice(1).some(a=>canon(a)===BASE+'/projects/closit/network-guide.txt')&&fs[BASE+'/projects/closit/network-guide.txt']?.t==='f')flags.read=true;originalExecute(raw)};
 seed();renderQuestions();})();
-</script></body></html>
+</script><script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
+</script>
+</body></html>

@@ -1,7 +1,49 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MockTIA Labs | Virtual IT Support Final Practical</title>
 <style>
 :root{font:15px/1.45 'Segoe UI',Arial,sans-serif;color:#edf5ff;background:#08111f;--a:#29d9ed;--b:#ef69cc;--bg:#121f32;--border:#36516b;--green:#66e4a2}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1b3151 0,#08111f 68%)}button,input,select,textarea{font:inherit}button{border:1px solid #4d7699;border-radius:8px;background:#203958;color:#eff9ff;padding:9px 13px;cursor:pointer}button:hover{background:#315779}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--a);outline-offset:2px}button.primary{background:#08788b;border-color:#38dcdf;font-weight:700}button.danger{border-color:#ab6576}button:disabled{opacity:.45;cursor:default}header{background:#09162b;border-bottom:2px solid var(--a);padding:17px 22px;display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.logo{font-size:24px;font-weight:950;letter-spacing:.5px;color:white}.logo strong{color:var(--a)}.sub{color:#b3cfeb;font-size:12px}.pill{border:1px solid #4b8399;border-radius:100px;padding:5px 12px;color:#bdeaff;font-size:12px}main{max-width:1530px;margin:auto;padding:18px}.intro{background:#122440;border:1px solid #355879;padding:16px;border-radius:12px;margin-bottom:15px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.intro p{margin:5px 0;color:#bfcee2}.forms{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.forms label{display:block;font-size:12px;color:#d0e3f5}.forms input,.forms select{background:#081628;border:1px solid #547a99;color:#fff;padding:10px;border-radius:7px;min-width:205px}.layout{display:grid;grid-template-columns:280px minmax(0,1fr) 305px;gap:14px}.panel{background:#112238;border:1px solid #35516b;border-radius:12px;min-width:0;overflow:hidden}.panel h2{font-size:15px;margin:0;padding:13px 14px;border-bottom:1px solid #334c64}.tickets{padding:9px;display:grid;gap:7px}.ticket{width:100%;display:flex;gap:10px;text-align:left;align-items:center}.ticket .num{border:1px solid #708fa6;border-radius:6px;padding:5px 7px;min-width:29px;text-align:center}.ticket.active{border-color:var(--a);background:#163f56}.ticket.done{border-color:#388765}.ticket small{display:block;color:#b7c9db}.content{padding:15px}.issue{padding:11px;background:#08192c;border-left:3px solid #f6c676;border-radius:6px;color:#d3e8f7}.issue strong{color:#fff}.tools{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}.tools button.on{background:#087789;border-color:#36daee}.workbox{min-height:345px;border:1px solid #526c83;border-radius:9px;background:#0a1525;padding:14px}.workbox h3{margin:0 0 11px;color:#7beafa}.workbox p{color:#b5cede}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0}.row label{min-width:130px;color:#d3e5f7}.row select,.row input{background:#11283e;border:1px solid #4d7699;border-radius:6px;color:#e6f7ff;padding:8px;min-width:150px;max-width:100%}.row button{padding:7px 10px}.good{color:#80f0b5}.bad{color:#ffaeae}.muted{color:#a9bed4}.terminal{font:13px/1.5 Consolas,monospace;background:#030b13;border:1px solid #244657;color:#b8f2d8;padding:12px;min-height:215px;max-height:275px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.cmd{display:flex;gap:8px;margin-top:8px}.cmd input{flex:1;min-width:80px;background:#071522;border:1px solid #4f7c91;border-radius:6px;color:white;padding:10px;font:13px Consolas,monospace}.cmd button{min-width:60px}.task{padding:12px;background:#0b1b2d;border:1px solid #35516b;border-radius:8px;margin:12px 0}.task p{margin:5px 0;color:#c0d4e5}.check{padding:8px;border:1px solid #355a73;border-radius:7px;color:#d0e9f5;margin:6px 0}.check.ok{background:#103c30;border-color:#4baf85}.right .inner{padding:12px}.notice{background:#103249;border:1px solid #357894;border-radius:7px;padding:12px;color:#cceafa}.feedback{min-height:85px;background:#07182a;border:1px solid #38546e;padding:10px;border-radius:8px;margin-top:12px;white-space:pre-wrap}.mini{font-size:12px;color:#b6ccde}.bar{height:11px;background:#091729;border-radius:100px;overflow:hidden;border:1px solid #35546d;margin:8px 0}.bar>div{height:100%;background:linear-gradient(90deg,#35badb,#5be6a8);width:0;transition:width .2s}.footer{border-top:1px solid #344d67;padding:17px;text-align:center;color:#9ec9df;margin-top:16px}.q{border:1px solid #3e5971;border-radius:8px;padding:12px;margin:12px 0}.q legend{font-weight:700;color:#c9ecff}.q label{display:block;margin:5px 0}.q input{accent-color:#28d1e6}#report{display:none}#workPhoto{max-height:230px;width:100%;object-fit:cover;border-radius:8px;border:1px solid #34566e;margin:4px 0 9px}.tag{background:#173954;color:#c5e8fc;border:1px solid #3c7897;border-radius:30px;padding:4px 9px;font-size:11px}#toolNote{padding:8px;color:#d3e7ff} @media(max-width:1130px){.layout{grid-template-columns:260px minmax(0,1fr)}.right{grid-column:1/-1}}@media(max-width:750px){.layout{grid-template-columns:1fr}.forms input,.forms select{min-width:155px}.right{grid-column:auto}.workbox{min-height:290px}}@media print{body{background:white!important;color:#111!important}body>*:not(#report){display:none!important}#report{display:block!important;color:#111!important;font:11pt/1.45 Arial,sans-serif;padding:12mm 8mm}#report h1{color:#103c62}#report table{border-collapse:collapse;width:100%;margin:12px 0}#report td,#report th{border:1px solid #999;padding:7px;text-align:left}#report th{background:#e7eff7}#report .sign{margin-top:28px;border-top:1px solid #aaa;padding-top:12px}}
-</style></head><body><header><div><div class="logo">Mock<strong>TIA</strong> Labs <span class="tag">FINAL PRACTICAL</span></div><div class="sub">Integrated Virtual IT Support Technician Certification Exam • Original training simulation</div></div><span class="pill">Created by Mr. Beaird</span></header>
+</style>
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
+</head><body><header><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div><div class="logo">Mock<strong>TIA</strong> Labs <span class="tag">FINAL PRACTICAL</span></div><div class="sub">Integrated Virtual IT Support Technician Certification Exam • Original training simulation</div></div><span class="pill">Created by Mr. Beaird</span></header>
+<section id="mocktiaUnifiedAssessment" data-lab="MockTIA Labs | Virtual IT Support Final Practical" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+
 <main><div class="intro"><div><b>Final Exam: Restore the Training Center</b><p>You are the on-call technician. Diagnose and repair 12 faults across one IT training environment. Each mission requires the correct changes and a verification action.</p><span class="mini">All systems are simulated; no changes are made to your computer. Recommended time: 90–120 minutes. Safety first: shut down and isolate power before hardware repairs.</span></div><div class="forms"><div><label for="student">Student full name *</label><input id="student" placeholder="First and last name" autocomplete="name"></div><div><label for="mode">Exam mode</label><select id="mode"><option value="training">Training (guided)</option><option value="assessment">Assessment (independent)</option></select></div><div><label>Today's date</label><div id="today" class="pill"></div></div></div></div>
 <div class="layout"><aside class="panel"><h2>Work Orders · 12</h2><div id="tickets" class="tickets"></div><div class="content"><div><b>Practical progress</b> <span id="progressText">0 / 12</span></div><div class="bar"><div id="progressBar"></div></div><p class="mini">Ticket status turns green only after the repair and a valid verification. Complete the knowledge check for your final score.</p><button id="reset" class="danger">Reset entire exam</button></div></aside>
 <section class="panel"><h2 id="ticketTitle">Work Order</h2><div class="content"><div class="issue" id="scenario"></div><div class="tools" id="tools"></div><div id="workbox" class="workbox"></div><div class="task"><b>Technician verification</b><p>Use the appropriate simulated diagnostic tool to confirm the fault is resolved. Your selected change alone does not complete the ticket.</p><div class="row"><button id="verify" class="primary">Run Verification</button><span id="verifyResult" class="muted">Not verified</span></div></div><div class="row"><label for="notes">Technician notes</label><textarea id="notes" rows="2" style="flex:1;min-width:180px;background:#0b1b2d;border:1px solid #4f7290;border-radius:6px;color:white;padding:8px" placeholder="Symptoms, root cause, action, proof of repair"></textarea></div></div></section>
@@ -102,4 +144,83 @@ function getScore(){let a=s.done.filter(Boolean).length,q=s.answers.filter((x,i)
 function printReport(){let name=$('student').value.trim();if(name.split(/\s+/).length<2){alert('Enter your full first and last name before printing.');$('student').focus();return}save();let r=getScore();let table=defs.map((d,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(d.name)+'</td><td>'+(s.done[i]?'Verified / Complete':'Incomplete')+'</td><td>'+esc(s.notes[i]||'No technician note supplied')+'</td></tr>').join('');let qs=questions.map((q,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(q[0])+'</td><td>'+(s.answers[i]===''?'Not answered':esc(q[1][Number(s.answers[i])]))+'</td><td>'+(s.answers[i]===q[2]?'Correct':'Incorrect / incomplete')+'</td></tr>').join('');$('report').innerHTML='<h1>MockTIA Labs — Virtual IT Support Final Practical</h1><p><b>Student:</b> '+esc(name)+' &nbsp; <b>Date:</b> '+esc(date())+'<br><b>Exam mode:</b> '+esc($('mode').value)+'</p><h2>Final Score: '+r.total+' / 100</h2><p><b>Verified repair tasks:</b> '+r.complete+' / 12 · <b>Practical:</b> '+r.practical+'/80 · <b>Knowledge:</b> '+r.knowledgePoints+'/20</p><p><b>Assessment status:</b> '+(r.complete===12&&s.answers.every(x=>x!=='')?'All parts attempted and tickets verified':'Incomplete — one or more tasks or answers remain unfinished')+'</p><h2>Technician Work Order Log</h2><table><tr><th>#</th><th>Fault</th><th>Verification</th><th>Technician Notes</th></tr>'+table+'</table><h2>Knowledge Check</h2><table><tr><th>#</th><th>Question</th><th>Student Answer</th><th>Result</th></tr>'+qs+'</table><p><b>Instructor review:</b> This document reports the simulation state in this browser; practical skills may require instructor observation or evidence.</p><div class="sign">Student signature: _________________________________ &nbsp; Date: ______________</div><p style="text-align:center;margin-top:25px"><b>Created by Mr. Beaird</b> · MockTIA Labs</p>';window.print()}
 $('mode').addEventListener('change',()=>{renderHint();save()});$('student').addEventListener('input',save);$('notes').addEventListener('input',save);$('verify').addEventListener('click',verify);$('quizBtn').addEventListener('click',quizShow);$('printBtn').addEventListener('click',printReport);$('reset').addEventListener('click',()=>{if(confirm('Reset all 12 tickets, command history, notes, and quiz answers? Student name is retained.')){s=initial();save();renderQuiz();openTicket(0)}});
 renderQuiz();openTicket(0);
-</script></body></html>
+</script><script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
+</script>
+</body></html>

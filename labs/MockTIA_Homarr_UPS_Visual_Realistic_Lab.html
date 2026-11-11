@@ -34,8 +34,50 @@ button{transition:background .12s,border .12s,transform .12s}button:active{trans
 .dashboard{background:#0c1220}.dashboardhead{border-bottom:1px solid #34465d;padding-bottom:16px}.statuscard{background:linear-gradient(145deg,#18253b,#111c2b);border:1px solid #2d455e;border-radius:10px;box-shadow:0 7px 18px #0003}.upsgrid{gap:12px}.bat{height:9px}.bat>div{background:linear-gradient(90deg,#12a57e,#5de9b0)}
 .mission-goal{font-size:14px}.why,.expected,.trouble{border-radius:8px}.device{background:#142337;border-color:#3b5166}
 @media print{.rack-shell,.topology-real{break-inside:avoid}}
-</style></head><body>
-<header><div><h1>⚡ MockTIA | UPS Monitoring Control Center</h1><small>Student technician walkthrough · Debian NUT · Proxmox · PeaNUT · Homarr</small></div><div class="row"><label class="student-name">Student <input id="student" placeholder="First and last name" style="width:195px" autocomplete="name"></label><button id="print-report">Print / Save PDF</button><span class="counter" id="progress-label">0 / 10 objectives</span><button id="hints-toggle">Guide: ON</button><button id="reset" class="danger">Reset lab</button></div></header>
+</style>
+<style id="mocktia-universal-layout-v1">
+/* Hide old floating brand bars and logo copies; retain one consistent header. */
+.mocktia-brandstrip{display:none!important}
+header:has(.mocktia-standard-brand) .logo,header:has(.mocktia-standard-brand) .mocktia-branding,header:has(.mocktia-standard-brand) .brand-name{display:none!important}
+
+/* Consistent MockTIA header: one M chip, lab title, controls. */
+header .mocktia-standard-brand{display:flex!important;align-items:center!important;gap:11px!important;flex-shrink:0!important;margin-right:9px!important;min-width:220px!important}
+.mocktia-standard-brand .mocktia-chip{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:11px;border:3px solid #36eaff;background:#09233b;color:#36eaff;font:900 27px/1 Arial,sans-serif;box-shadow:0 0 17px #19dcfa66}
+.mocktia-standard-brand .mocktia-brandlabel{display:flex;flex-direction:column;gap:1px;color:#f4faff!important;font:900 19px/1.13 Segoe UI,Arial,sans-serif!important;letter-spacing:.25px}
+.mocktia-standard-brand .mocktia-brandlabel b{color:#41e9ff!important}
+.mocktia-standard-brand .mocktia-brandlabel small{color:#94f2ca!important;font:700 9px/1.4 Segoe UI,Arial,sans-serif!important;letter-spacing:.08em;text-transform:uppercase}
+header:has(.mocktia-standard-brand) .brand,header:has(.mocktia-standard-brand) .eyebrow,header:has(.mocktia-standard-brand) .chip-logo{display:none!important}
+header:has(.mocktia-standard-brand) {align-items:center!important;gap:12px!important}
+header:has(.mocktia-standard-brand) h1{font-size:clamp(19px,1.75vw,24px)!important}
+/* New assessment panel, matching the established 3.3.4 lab. */
+#mocktiaUnifiedAssessment{max-width:1530px;width:calc(100% - 26px);margin:16px auto;padding:17px 18px;background:#122440;border:1px solid #355879;border-radius:12px;color:#edf5ff;font:14px/1.48 Segoe UI,Arial,sans-serif;box-sizing:border-box}
+#mocktiaUnifiedAssessment h2{font-size:19px;color:#29d9ed;margin:0 0 10px;font-weight:800}
+#mocktiaUnifiedAssessment .mu-fields{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+#mocktiaUnifiedAssessment .mu-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#d6efff}
+#mocktiaUnifiedAssessment .mu-field input{min-width:225px;max-width:100%;background:#09182c;color:white;border:1px solid #557d9c;border-radius:8px;padding:10px;font:14px Segoe UI,Arial,sans-serif}
+#mocktiaUnifiedAssessment .mu-pill{display:inline-block;border-radius:99px;border:1px solid #447994;background:#153450;padding:10px 13px;font-size:13px;color:#e0faff}
+#mocktiaUnifiedAssessment button{display:inline-block;background:#007c98;border:1px solid #36dbee;color:white;border-radius:8px;padding:10px 15px;min-height:41px;font:bold 13px Segoe UI,Arial,sans-serif;cursor:pointer}
+#mocktiaUnifiedAssessment button:hover{background:#069db9}
+#mocktiaUnifiedAssessment .mu-explainer{margin:9px 0 0;color:#c4e0f4;font-size:12px}
+#mocktiaUnifiedAssessment .mu-score{font-weight:800;color:#5befc7;font-size:14px}
+#mocktiaUnifiedAssessment .mu-warn{color:#ffcb81;font-size:12px;margin-top:6px}
+#mocktiaUnifiedAssessment .mu-date{min-height:41px;display:flex;align-items:center}
+#mocktiaUnifiedPrint{display:none}
+@media print{
+ body.mocktia-unified-print > :not(#mocktiaUnifiedPrint){display:none!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint{display:block!important;background:white!important;color:#17202b!important;max-width:780px!important;margin:0 auto!important;padding:24px!important;font:13px/1.5 Arial,sans-serif!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h1{font-size:24px!important;color:#103e58!important;margin:0 0 7px!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint h2{font-size:18px!important;color:#194966!important;margin:14px 0!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint table{border-collapse:collapse!important;width:100%!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint th,body.mocktia-unified-print #mocktiaUnifiedPrint td{border:1px solid #b8c6d2!important;padding:8px!important;text-align:left!important}
+ body.mocktia-unified-print #mocktiaUnifiedPrint .mu-incomplete{color:#8c4209!important}
+}
+@media(max-width:640px){.mocktia-standard-brand .mocktia-brandlabel{font-size:16px!important}.mocktia-standard-brand .mocktia-brandlabel small{font-size:8px!important}#mocktiaUnifiedAssessment .mu-field input{min-width:170px}header .mocktia-standard-brand{min-width:0!important}}
+</style>
+</head><body>
+<header><div class="mocktia-standard-brand" aria-label="MockTIA Labs branding"><span class="mocktia-chip" aria-hidden="true">M</span><span class="mocktia-brandlabel">Mock<b>TIA LABS</b><small>Interactive IT Training &amp; Simulations</small></span></div><div><h1>⚡ MockTIA | UPS Monitoring Control Center</h1><small>Student technician walkthrough · Debian NUT · Proxmox · PeaNUT · Homarr</small></div><div class="row"><label class="student-name">Student <input id="student" placeholder="First and last name" style="width:195px" autocomplete="name"></label><button id="print-report">Print / Save PDF</button><span class="counter" id="progress-label">0 / 10 objectives</span><button id="hints-toggle">Guide: ON</button><button id="reset" class="danger">Reset lab</button></div></header>
+<section id="mocktiaUnifiedAssessment" data-lab="CLASSROOM RACK LAB | Homarr UPS Real-World Guided Lab" aria-label="MockTIA student completion assessment"><h2>MockTIA Labs · Student Completion Assessment</h2><div class="mu-fields"><label class="mu-field">Student full name *<input id="muStudent" placeholder="First and last name" autocomplete="name"></label><div class="mu-field">Today's date<span class="mu-date"><span class="mu-pill" id="muDate"></span></span></div><button type="button" id="muCheck">Check My Score</button><button type="button" id="muPrint">Print / Save Assessment</button><span id="muScore" class="mu-score" role="status">Checking simulator score…</span></div><p class="mu-explainer">Complete the simulator activities, check your verified score, then print or save your technician assessment as a PDF for Canvas.</p><div id="muWarning" class="mu-warn"></div></section>
+
 <div class="layout"><aside class="left"><section class="panel"><h2>Mission checklist</h2><div class="progress"><div id="progress"></div></div><div id="steps" class="steps" style="margin-top:12px"></div></section><section class="panel"><h2>On-the-job technician guide</h2><p class="lesson">Read <b>WHY</b> first, then follow the numbered actions. Use the output examples to decide whether your change worked. “Send to terminal” only pre-fills; you still press Enter.</p><div id="guide" class="hint"></div><div class="section lesson"><b>Important:</b> This is a simulated lab. No real host configurations or electricity are changed. The final Homarr-like GUI is simulated and unlocks after validation.</div></section></aside><main class="main"><section class="panel intro"><h2>📋 Work order: deploy central UPS monitoring</h2><p><b>Scenario.</b> The network team wants to monitor three battery backups from a web dashboard and safely notify Proxmox hosts when their own UPS loses power. The UPS USB data cables are <b>already connected</b> to the Debian Wysebox; your job is to configure software, verify each connection, then publish the Homarr widgets.</p><div class="workorder"><span>① Detect UPS hardware</span><span>② Configure Wysebox NUT</span><span>③ Configure each Proxmox monitor</span><span>④ Connect PeaNUT API</span><span>⑤ Build Homarr board</span><span>⑥ Simulate outage</span></div><p class="lesson"><b>Real vs simulation:</b> Commands execute only inside this HTML file. Sample UPS serials, passwords, battery percentages and terminal output are fictional. No production host is contacted.</p></section><section class="panel"><div class="flex"><h2>Network topology · installation-02 (Proxmox2)</h2><span class="badge">10.10.20.22 · hypervisor</span></div><div class="topology-real">
 <div class="topo-card"><div class="topo-label">USB × 3 · PHYSICAL</div><div class="topo-name">🔋 UPS 1–3</div><div class="topo-ip">Pre-connected to Wysebox</div><div class="topo-state good" id="usbtag">USB preconnected</div></div>
 <div class="topo-card"><div class="topo-label">DEBIAN · NUT SERVER</div><div class="topo-name">Wysebox 5010</div><div class="topo-ip">10.10.20.4:3493</div><div class="topo-state wait" id="nuttag">Offline</div></div>
@@ -82,4 +124,83 @@ function fileList(){let h=$('host').value,files=Object.keys(s.files[h]);$('path'
 function setView(v){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('selected',b.dataset.view===v));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===v))}
 function command(c){let h=$('host').value;c=c.trim();if(!c)return;hist.push(c);histidx=hist.length;out(`root@${NAME[h]}:~# ${c}`);if(c==='clear'){$('output').textContent='';return}if(c==='help'){out('Available: apt update | apt install nut-server nut-client nut-scanner -y | lsusb | sudo nut-scanner -U | sudo nano /etc/nut/FILE | cat /etc/nut/FILE | sudo systemctl restart nut-server | sudo systemctl restart nut-monitor | systemctl status nut-server | systemctl status nut-monitor | upsc -l localhost | upsc ups1@10.10.20.4 | curl http://10.10.20.17:8080 | ping 10.10.20.4 | hostname -I');return}if(/^(sudo\s+)?apt(-get)?\s+update/.test(c)){out('Hit:1 Debian stable InRelease\nReading package lists... Done');if(!c.includes('&&'))return;c=c.split('&&').slice(1).join('&&').trim()}if(/^(sudo\s+)?apt(-get)?\s+install\s+/.test(c)){if(!c.includes('nut')){out('No package modeled by this lab.');return}if(h==='wyse')s.installed=true;else if(['p2','p3'].includes(h))s.clientInstall[h]=true;else{out('These app containers are already provisioned. Use configuration panels.');return}out('Reading package lists... Done\nSetting up nut packages... Done');log(`NUT installed on ${NAME[h]}`,'ok');refresh();return}if(c==='lsusb'){out(h==='wyse'?UPS.filter(u=>s.usb[u]).map((u,i)=>`Bus 001 Device 00${i+2}: ID 051d:0002 Simulated UPS ${u.toUpperCase()}`).join('\n')||'No UPS USB devices connected':'USB hub found. No UPS connected to this host.');return}if(/nut-scanner\s+-U/.test(c)){out(h==='wyse'?UPS.filter(u=>s.usb[u]).map((u,i)=>`[${u}]\n    driver = usbhid-ups\n    port = auto\n    serial = LAB-000${Number(u.slice(-1))}`).join('\n\n')||'No UPS devices found':'No locally attached UPS devices.');return}let m=c.match(/^(?:sudo\s+)?(?:nano|vi|vim)\s+(\/etc\/nut\/\S+)/);if(m){if(s.files[h][m[1]]!==undefined){openedNano={host:h,path:m[1]};setView('files');$('path').value=m[1];loadFile();out('nano '+m[1]+' opened. Enter the configuration in the editor and click Save file.')}else out('This file is not available on this training system.');return}m=c.match(/^cat\s+(\/etc\/nut\/\S+)/);if(m){out(s.files[h][m[1]]||'No such file');return}m=c.match(/(?:sudo\s+)?systemctl\s+(?:start|restart|enable\s+--now)\s+(nut-server|nut-monitor)/);if(m){if(m[1]==='nut-server'&&h==='wyse'){s.serverStarted=!!nutReady();out(s.serverStarted?'nut-server: active (running), listening on 10.10.20.4:3493':'nut-server: FAILED. Check USB connections, driver serials, MODE, LISTEN and user definitions.')}else if(m[1]==='nut-monitor'&&['p2','p3'].includes(h)){s.clientStarted[h]=!!(server()&&clientConfigured(h));out(s.clientStarted[h]?'nut-monitor: active (running); remote UPS authenticated':!server()?'nut-monitor: FAILED. Wysebox NUT server is offline. On Wysebox run: sudo systemctl restart nut-server':!s.clientInstall[h]?'nut-monitor: FAILED. Install nut-client first.':!mode(h,'netclient')?'nut-monitor: FAILED. Set MODE=netclient in /etc/nut/nut.conf.':'nut-monitor: FAILED. Check the UPS name, MONITOR credentials, and AC power mapping in /etc/nut/upsmon.conf.')}else out('This service is not modeled on this host.');refresh();return}m=c.match(/systemctl\s+status\s+(nut-server|nut-monitor)/);if(m){out((m[1]==='nut-server'?server():['p2','p3'].includes(h)&&client(h))?'Active: active (running)':'Active: inactive (dead)');return}if(/^upsc\s+-l\s+/.test(c)){out(server()?UPS.join('\n'):'Error: Connection refused: NUT server not running.');return}m=c.match(/^upsc\s+(ups[123])(?:@(?:10\.10\.20\.4|localhost))?/);if(m){let u=m[1];out(server()?`battery.charge: ${s.events[u]==='LB'?8:s.events[u]==='OB'?68:100}\nups.status: ${s.events[u]==='LB'?'OB LB':s.events[u]}\nups.load: 24\nbattery.runtime: ${s.events[u]==='LB'?130:3240}`:'Error: Connection refused');return}if(c==='hostname -I'){out(IPS[h]);return}if(/^ping\s+/.test(c)){out('PING: 1 packets transmitted, 1 received, 0% packet loss (simulated LAN)');return}if(/^curl\s+/.test(c)){out(c.includes('10.10.20.17:8080')?peanut()?'HTTP/1.1 200 OK — PeaNUT web/API responds':'HTTP/1.1 503 Service Unavailable — PeaNUT/NUT integration not ready':'curl: unsupported target in lab');return}out('Unknown command. Type help for supported training commands.')}
 $('host').onchange=()=>{openedNano=null;$('hostname').textContent='root@'+NAME[$('host').value];fileList();out(`Connected to ${NAME[$('host').value]} (${IPS[$('host').value]})`)};$('path').onchange=()=>{openedNano=null;loadFile()};$('load').onclick=loadFile;$('save-file').onclick=()=>{if(!openedNano||openedNano.host!==$('host').value||openedNano.path!==$('path').value){$('filehelp').textContent='First run sudo nano '+$('path').value+' in the selected host terminal, then edit and save.';out('ERROR: You must open the file using sudo nano in the terminal before saving.');return}const savedHost=$('host').value,savedPath=$('path').value,oldText=s.files[savedHost][savedPath],newText=$('editor').value;const changed=oldText!==newText;s.files[savedHost][savedPath]=newText;log(`Saved ${savedPath} on ${NAME[savedHost]}`,'ok');if(changed){if(savedHost==='wyse'){s.serverStarted=false;s.clientStarted.p2=false;s.clientStarted.p3=false;s.peanutConnected=false;s.tested=false;out('Wysebox NUT configuration changed. Restart nut-server on the Wysebox, then restart dependent clients.')}else if(savedHost==='p2'||savedHost==='p3'){s.clientStarted[savedHost]=false;s.tested=false;out('Client configuration saved on '+NAME[savedHost]+'. Restart nut-monitor on this host. The Wysebox NUT server remains online.')}else{out('Configuration saved.')}}else{out('File saved without changes; currently running services were not interrupted.')}openedNano=null;refresh()};document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));$('cmd').onkeydown=e=>{if(e.key==='Enter'){command($('cmd').value);$('cmd').value=''}else if(e.key==='ArrowUp'){if(histidx>0)histidx--;e.target.value=hist[histidx]||'';e.preventDefault()}else if(e.key==='ArrowDown'){if(histidx<hist.length)histidx++;e.target.value=hist[histidx]||'';e.preventDefault()}};$('run').onclick=()=>{command($('cmd').value);$('cmd').value='';$('cmd').focus()};$('peaconnect').onclick=()=>{let good=$('peahost').value.trim()==='10.10.20.4'&&$('peaport').value.trim()==='3493'&&server();s.peanutConnected=!!good;log(good?'PeaNUT successfully connected to Wysebox NUT server.':'PeaNUT test failed: incorrect host/port or NUT is offline.',good?'ok':'bad');refresh()};$('testint').onclick=()=>{let good=peanut()&&$('inttype').value==='peanut'&&$('inturl').value.trim().replace(/\/$/,'')==='http://10.10.20.17:8080'&&!!$('intname').value.trim();s.integration=!!good;log(good?'Homarr to PeaNUT connection test passed.':'Integration failed: check PeaNUT service and use http://10.10.20.17:8080',good?'ok':'bad');refresh()};$('addwidgets').onclick=()=>{if(!integration()||$('widgetint').value!=='peanut'){log('Cannot save widget: choose a valid PeaNUT integration first.','bad');return}s.widgets=Array.from(document.querySelectorAll('.chooseups:checked')).map(x=>x.value);log(`Configured ${s.widgets.length} UPS devices on Homarr dashboard`,s.widgets.length===3?'ok':'warn');refresh()};$('simulate').onclick=()=>{const u=$('eventups').value,v=$('eventkind').value;s.events[u]=v;let recipients=['p2','p3'].filter(h=>s.power[h]===u&&client(h));if(v==='LB'&&u==='ups1'&&recipients.includes('p2'))s.tested=true;let msg=v==='OL'?`${u.toUpperCase()} returned to utility power.`:v==='OB'?`${u.toUpperCase()} on battery. No shutdown triggered from this event by default.`:`${u.toUpperCase()} critical battery. Shutdown request sent to: ${recipients.map(h=>NAME[h]).join(', ')||'no validated Proxmox clients'}.`;if(s.power.wyse===u&&v==='LB')msg+=' Wysebox primary shutdown is outside this simulator and requires its own upsmon policy.';$('eventreport').textContent=msg;log(msg,v==='LB'?'warn':'');refresh()};$('restore').onclick=()=>{UPS.forEach(u=>s.events[u]='OL');$('eventreport').textContent='All UPS devices restored to utility power.';refresh()};$('validate').onclick=()=>{if(checks[sel]()){log(`Objective ${sel+1} PASSED`,'ok');let next=checks.findIndex(f=>!f());if(next>=0)sel=next}else log(`Objective ${sel+1} is incomplete. Use Student Guide for exact instructions.`,'bad');refresh()};$('hints-toggle').onclick=()=>{guided=!guided;$('hints-toggle').textContent=guided?'Guide: ON':'Guide: OFF';refresh()};$('student').value=localStorage.getItem('homarr-lab-student-name')||'';$('student').oninput=()=>localStorage.setItem('homarr-lab-student-name',$('student').value);$('print-report').onclick=()=>{$('report-name').textContent='Student: '+($('student').value.trim()||'_____________________');$('report-date').textContent='Date: '+new Date().toLocaleDateString();$('report-score').textContent='Score: '+checks.filter(f=>f()).length+'/10 missions ('+(checks.filter(f=>f()).length*10)+'%)';$('report-objectives').innerHTML=tasks.map((x,i)=>'<p>'+(checks[i]()?'☑':'☐')+' '+esc(x[0])+'</p>').join('');window.print()};$('reset').onclick=()=>{if(confirm('Reset all simulated configuration and progress?')){s=initial();sel=0;fileList();$('output').textContent='';log('Training lab reset.');refresh()}};out('Welcome to the CLASSROOM RACK LAB — Homarr UPS deployment.');out('Physical UPS → Wysebox NUT → PeaNUT CT105 → Homarr CT100.');out('Enter help for commands. All changes are simulated and saved in this browser.');fileList();refresh();})();
-</script></body></html>
+</script><script id="mocktia-universal-assessment-script">
+(function(){
+'use strict';
+const panel=document.getElementById('mocktiaUnifiedAssessment');
+if(!panel)return;
+const nameInput=document.getElementById('muStudent');
+const originalInput=(()=>{
+ const known=['student','studentName','name','mocktiaStudentName','maStudent'];
+ for(const id of known){const e=document.getElementById(id);if(e && e!==nameInput && (e.tagName==='INPUT'||e.tagName==='TEXTAREA'))return e;}
+ return null;
+})();
+const text=document.getElementById('muScore');
+const warning=document.getElementById('muWarning');
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const key='mocktia_student_full_name';
+function writeName(value){
+ try{localStorage.setItem(key,value)}catch(e){}
+ if(originalInput && originalInput.value!==value){originalInput.value=value; originalInput.dispatchEvent(new Event('input',{bubbles:true}));originalInput.dispatchEvent(new Event('change',{bubbles:true}));}
+}
+try{nameInput.value=originalInput?.value || localStorage.getItem(key) || ''}catch(e){nameInput.value=originalInput?.value||''}
+nameInput.addEventListener('input',()=>writeName(nameInput.value));
+if(originalInput){originalInput.addEventListener('input',()=>{if(document.activeElement===originalInput && nameInput.value!==originalInput.value){nameInput.value=originalInput.value;try{localStorage.setItem(key,nameInput.value)}catch(e){}}})}
+if(nameInput.value && originalInput && !originalInput.value)writeName(nameInput.value);
+document.getElementById('muDate').textContent=new Date().toLocaleDateString();
+function numerical(v){if(typeof v==='number' && Number.isFinite(v) && v>=0 && v<=100)return Math.round(v);return null;}
+function capture(){
+ // Use the native simulator's pure scoring function where it exposes one.
+ try {
+  if(typeof score==='function'){
+   const v=score();
+   if(typeof v==='number'){const n=numerical(v);if(n!==null)return {value:n,source:'Simulator score()'};}
+   if(v && typeof v==='object')for(const k of ['points','score','total','pct','percent']){const n=numerical(v[k]);if(n!==null)return {value:n,source:'Simulator scoring report'};}
+  }
+ }catch(e){}
+ try{if(typeof points==='function'){const n=numerical(points());if(n!==null)return {value:n,source:'Simulator points()'};}}catch(e){}
+ try{if(typeof scored==='function'){const v=scored();const n=numerical(v?.score??v?.total??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ try{if(typeof getScore==='function'){const v=getScore();const n=numerical(v?.score??v?.points??v);if(n!==null)return {value:n,source:'Simulator assessment'};}}catch(e){}
+ // Original labs sometimes render a numeric score in an on-screen status.
+ for(const id of ['scoreLabel','scoreText','score','maScore','progressScore','scoreOut']){
+  const el=document.getElementById(id);if(!el)continue;
+  const val=(el.textContent||'').trim();
+  const match=val.match(/(?:score[:\s]*)?(\d{1,3})\s*(?:\/\s*100|%)/i);
+  if(match){const n=numerical(Number(match[1]));if(n!==null)return {value:n,source:'Verified simulator status'};}
+ }
+ // No assumptions or invented completion: absence of native score remains unverified.
+ return null;
+}
+function update(){
+ const s=capture();
+ text.textContent=s?'Verified score: '+s.value+' / 100':'Score: check the simulator assessment';
+ warning.textContent=s?(s.value===100?'All available scored objectives verified.':'Score reflects completed simulator objectives; finish remaining tasks before submission.'):'This simulator does not expose a reliable score here. Use its original assessment and have the instructor verify completion.';
+ return s;
+}
+const report=document.createElement('article');report.id='mocktiaUnifiedPrint';document.body.append(report);
+document.getElementById('muCheck').addEventListener('click',update);
+document.getElementById('muPrint').addEventListener('click',()=>{
+ const student=nameInput.value.trim();
+ if(student.split(/\s+/).length<2){warning.textContent='Please enter your first and last name before printing.';nameInput.focus();return;}
+ writeName(student);
+ const s=update();const now=new Date().toLocaleDateString();const title=panel.dataset.lab||document.title;
+ const scoreText=s?(s.value+' / 100'):'Not independently verifiable';
+ const status=s?(s.value===100?'Verified: all scored objectives complete':'INCOMPLETE — score below 100'):'Requires review of the native simulator checklist';
+ report.innerHTML='<h1>MockTIA Labs — Student Completion Assessment</h1>'+
+  '<p><b>Lab:</b> '+esc(title)+'</p><p><b>Student:</b> '+esc(student)+'</p><p><b>Date:</b> '+esc(now)+'</p>'+
+  '<h2>Score: '+esc(scoreText)+'</h2><p class="mu-incomplete"><b>Status:</b> '+esc(status)+'</p>'+
+  '<table><thead><tr><th>Assessment item</th><th>Verification</th></tr></thead><tbody>'+
+  '<tr><td>Student identification</td><td>Provided</td></tr>'+
+  '<tr><td>Practical lab activities</td><td>'+(s?'Score provided by original simulation':'Instructor verification required')+'</td></tr>'+
+  '<tr><td>Skills / knowledge assessment</td><td>'+(s?'Included in simulator score when applicable':'Check original lab results')+'</td></tr>'+
+  '</tbody></table><p><b>Student signature:</b> ____________________________ &nbsp; <b>Date:</b> ____________</p>'+
+  '<p><b>Instructor verification:</b> ____________________________</p><p>Created by Mr. Beaird</p>';
+ document.body.classList.add('mocktia-unified-print');window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('mocktia-unified-print'));
+update();
+// Refresh only the small score label; do not touch the simulation itself.
+setInterval(()=>{if(!document.body.classList.contains('mocktia-unified-print'))update()},1600);
+})();
+</script>
+</body></html>
